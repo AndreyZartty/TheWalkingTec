@@ -21,23 +21,21 @@ public class VentanaUsuario extends javax.swing.JFrame {
      * Creates new form VentanaUsuario
      */
     public VentanaUsuario() {
+        /* eto ya no silve chico
+        
         usuarios = new ArrayList<Usuario>();
         usuarios.add(new Usuario("contrasena1", "usuario1"));
-        usuarios.add(new Usuario("contrasena2", "usuario2"));
+        usuarios.add(new Usuario("contrasena2", "usuario2")); */
 
         initComponents();
     }
     
     
     private boolean validarCredenciales(String usuario, String contraseña) {
-       // System.out.println(usuario);
-        //System.out.println(contraseña);
-        for (Usuario u : usuarios) {
-            //System.out.println(u.getUsuario());
-            //System.out.println(u.getContraseña());
-            if (u.getUsuario().equals(usuario) && u.getContraseña().equals(contraseña)) {
+       
+            if ("usuario1" == usuario && "contraseña1" == contraseña) {
                 return true; // Credenciales válidas
-            }
+            
         }
         return false; // Credenciales no válidas
     }
