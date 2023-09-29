@@ -18,8 +18,11 @@ public class ProyectoBorrador {
         
         
         
-        zombie nuevo = new zombie("caca", "cagon", 11, 11, 11, "url", "url");
-        System.out.println(nuevo);
+        
+        zombie leido =  (zombie)FileManager.readObject("xdd.dat");
+        System.out.println(leido.toString());
+        
+     
         // TODO code application logic here
     }
     

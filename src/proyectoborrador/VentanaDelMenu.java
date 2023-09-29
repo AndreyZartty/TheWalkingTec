@@ -52,20 +52,21 @@ public class VentanaDelMenu extends javax.swing.JFrame {
         txtGolpe1 = new javax.swing.JTextField();
         txtAparicion = new javax.swing.JTextField();
         txtAparicion1 = new javax.swing.JTextField();
-        txtGIF11 = new javax.swing.JTextField();
-        txtGIF1 = new javax.swing.JTextField();
+        txtGIF1Arma = new javax.swing.JTextField();
+        txtGIF1Zombie = new javax.swing.JTextField();
         txtCampo = new javax.swing.JTextField();
-        txtGIF21 = new javax.swing.JTextField();
-        txtGIF2 = new javax.swing.JTextField();
+        txtGIF2Arma = new javax.swing.JTextField();
+        txtGIF2Zombie = new javax.swing.JTextField();
         btnCrearZombie = new javax.swing.JButton();
         btnCrearArma = new javax.swing.JButton();
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtNombre1 = new javax.swing.JTextField();
+        txtCampo1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(215, 255, 247));
+        jPanel1.setBackground(new java.awt.Color(255, 234, 246));
         jPanel1.setForeground(new java.awt.Color(102, 255, 204));
 
         lblArma.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
@@ -109,6 +110,11 @@ public class VentanaDelMenu extends javax.swing.JFrame {
         btnCrearArma.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         btnCrearArma.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearArma.setText("Crear Arma");
+        btnCrearArma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearArmaActionPerformed(evt);
+            }
+        });
 
         lblNombre.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         lblNombre.setText("Nombre");
@@ -142,7 +148,7 @@ public class VentanaDelMenu extends javax.swing.JFrame {
                         .addGap(61, 61, 61))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                         .addComponent(txtTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -150,16 +156,21 @@ public class VentanaDelMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtResistencia1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtGIF2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtGIF2Zombie, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtGIF21, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtGIF2Arma, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtGIF1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtGIF1Zombie, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtGIF11, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtGIF1Arma, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtAparicion, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -168,14 +179,10 @@ public class VentanaDelMenu extends javax.swing.JFrame {
                                 .addComponent(txtGolpe, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtGolpe1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txtCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(43, 43, 43))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(43, 43, 43))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -223,20 +230,21 @@ public class VentanaDelMenu extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtGIF11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGIF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtGIF1Arma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtGIF1Zombie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
-                                .addComponent(txtGIF21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtGIF2Arma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
-                                .addComponent(txtGIF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtGIF2Zombie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCampo)
-                    .addComponent(txtCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                    .addComponent(txtCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCampo1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCrearZombie)
                     .addComponent(btnCrearArma))
@@ -275,18 +283,27 @@ public class VentanaDelMenu extends javax.swing.JFrame {
     String Strresistencia = txtResistencia.getText().trim(); 
     String Strgolpe = txtGolpe.getText().trim();
     String Straparicion = txtAparicion.getText().trim(); 
-    String Gif = txtGIF1.getText().trim();
-    String Gif2 = txtGIF11.getText().trim();
+    String Gif = txtGIF1Zombie.getText().trim();
+    String Gif2 = txtGIF2Zombie.getText().trim();
+    String StrCampo = txtCampo.getText().trim();
     
     
     int resistencia = Integer.parseInt(Strresistencia);
     int golpe = Integer.parseInt(Strgolpe);
     int aparicion = Integer.parseInt(Straparicion);
+    int campo = Integer.parseInt(StrCampo);
+    
+    zombie zombie1 = new zombie(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2, campo);
+    
+    String nombreObject = nombre + ".dat";
+    System.out.println(nombreObject);
     
     
-    zombie zombie1 = new zombie(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2);
+    FileManager.writeObject(zombie1, nombreObject);
     
-        System.out.println(zombie1);
+    
+    
+    System.out.println(zombie1);
         
     
     JOptionPane.showMessageDialog(rootPane, zombie1, "zombie creado", JOptionPane.OK_OPTION);
@@ -294,6 +311,37 @@ public class VentanaDelMenu extends javax.swing.JFrame {
     
     
     }//GEN-LAST:event_btnCrearZombieActionPerformed
+
+    private void btnCrearArmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearArmaActionPerformed
+    String nombre = txtNombre1.getText().trim(); //el trim quita los espacios
+    String tipo = txtTipo1.getText().trim(); 
+    String Strresistencia = txtResistencia1.getText().trim(); 
+    String Strgolpe = txtGolpe1.getText().trim();
+    String Straparicion = txtAparicion1.getText().trim(); 
+    String Gif = txtGIF1Arma.getText().trim();
+    String Gif2 = txtGIF1Arma.getText().trim();
+    String StrCampo = txtCampo1.getText().trim();
+    
+    
+    int resistencia = Integer.parseInt(Strresistencia);
+    int golpe = Integer.parseInt(Strgolpe);
+    int aparicion = Integer.parseInt(Straparicion);
+    int campo = Integer.parseInt(StrCampo);
+    
+    
+    arma arma1 = new arma(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2, campo);
+    
+    String nombreObject = nombre + ".dat";
+    
+    
+    
+    FileManager.writeObject(arma1, nombreObject);
+    
+    System.out.println(arma1);
+        
+    
+    JOptionPane.showMessageDialog(rootPane, arma1, "Arma creada", JOptionPane.OK_OPTION);
+    }//GEN-LAST:event_btnCrearArmaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -345,10 +393,11 @@ public class VentanaDelMenu extends javax.swing.JFrame {
     private javax.swing.JTextField txtAparicion;
     private javax.swing.JTextField txtAparicion1;
     private javax.swing.JTextField txtCampo;
-    private javax.swing.JTextField txtGIF1;
-    private javax.swing.JTextField txtGIF11;
-    private javax.swing.JTextField txtGIF2;
-    private javax.swing.JTextField txtGIF21;
+    private javax.swing.JTextField txtCampo1;
+    private javax.swing.JTextField txtGIF1Arma;
+    private javax.swing.JTextField txtGIF1Zombie;
+    private javax.swing.JTextField txtGIF2Arma;
+    private javax.swing.JTextField txtGIF2Zombie;
     private javax.swing.JTextField txtGolpe;
     private javax.swing.JTextField txtGolpe1;
     private javax.swing.JTextField txtNombre;

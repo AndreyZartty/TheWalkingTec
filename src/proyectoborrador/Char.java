@@ -6,6 +6,7 @@
 
 package proyectoborrador;
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
@@ -13,7 +14,7 @@ import javax.swing.ImageIcon;
  *
  * @author Lenovo
  */
-public class Char {
+public class Char implements Serializable {
     private String nombre;
     private String tipo;
     private int vida = 100;
@@ -23,19 +24,25 @@ public class Char {
     private ArrayList historial;
     private String gif;
     private String gif2;
+    private int campo; //el espacio que ocupan
     
     public Char() {
        historial = new ArrayList();
     }
 
-    public Char(String nombre,String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2) {
+    public Char(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
+        this.nombre = nombre;
         this.tipo = tipo;
         this.resistencia = resistencia;
         this.golpe = golpe;
         this.aparicion = aparicion;
+        
         this.gif = gif;
         this.gif2 = gif2;
+        this.campo = campo;
     }
+
+    
 
     
 
@@ -109,6 +116,14 @@ public class Char {
 
     public void setGif2(String gif2) {
         this.gif2 = gif2;
+    }
+
+    public int getCampo() {
+        return campo;
+    }
+
+    public void setCampo(int campo) {
+        this.campo = campo;
     }
 
     

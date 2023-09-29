@@ -44,7 +44,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="f7" green="ff" red="d7" type="rgb"/>
+          <Color blue="f6" green="ea" red="ff" type="rgb"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="ff" red="66" type="rgb"/>
@@ -82,7 +82,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="txtTipo" min="-2" pref="175" max="-2" attributes="0"/>
-                          <EmptySpace pref="91" max="32767" attributes="0"/>
+                          <EmptySpace pref="187" max="32767" attributes="0"/>
                           <Component id="txtTipo1" min="-2" pref="182" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
@@ -92,17 +92,23 @@
                           <Component id="txtResistencia1" min="-2" pref="175" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="txtNombre" min="-2" pref="175" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txtNombre1" min="-2" pref="175" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="txtGIF2" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <Component id="txtGIF2Zombie" min="-2" pref="175" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="txtGIF21" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <Component id="txtGIF2Arma" min="-2" pref="175" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="txtGIF1" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <Component id="txtGIF1Zombie" min="-2" pref="175" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="txtGIF11" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <Component id="txtGIF1Arma" min="-2" pref="175" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="txtAparicion" min="-2" pref="175" max="-2" attributes="0"/>
@@ -114,17 +120,12 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="txtGolpe1" min="-2" pref="175" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="txtCampo" min="-2" pref="175" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="txtCampo1" min="-2" pref="175" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="txtNombre" min="-2" pref="175" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtNombre1" min="-2" pref="175" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -186,17 +187,17 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtGIF11" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtGIF1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtGIF1Arma" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtGIF1Zombie" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="txtGIF21" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtGIF2Arma" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                  <Component id="txtGIF2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtGIF2Zombie" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -205,8 +206,9 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCampo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtCampo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCampo1" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="54" max="32767" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnCrearZombie" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCrearArma" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -305,15 +307,15 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtAparicion1">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtGIF11">
+        <Component class="javax.swing.JTextField" name="txtGIF1Arma">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtGIF1">
+        <Component class="javax.swing.JTextField" name="txtGIF1Zombie">
         </Component>
         <Component class="javax.swing.JTextField" name="txtCampo">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtGIF21">
+        <Component class="javax.swing.JTextField" name="txtGIF2Arma">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtGIF2">
+        <Component class="javax.swing.JTextField" name="txtGIF2Zombie">
         </Component>
         <Component class="javax.swing.JButton" name="btnCrearZombie">
           <Properties>
@@ -345,6 +347,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Crear Arma"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearArmaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblNombre">
           <Properties>
@@ -357,6 +362,8 @@
         <Component class="javax.swing.JTextField" name="txtNombre">
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombre1">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtCampo1">
         </Component>
       </SubComponents>
     </Container>

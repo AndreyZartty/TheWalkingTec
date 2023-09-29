@@ -4,7 +4,7 @@
  */
 package proyectoborrador;
 
-import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author Lenovo
  */
 public class VentanaUsuario extends javax.swing.JFrame {
-    private ArrayList<Usuario> usuarios;
+ 
     
     
     

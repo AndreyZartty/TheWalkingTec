@@ -4,22 +4,33 @@
  */
 package proyectoborrador;
 
-import java.awt.Image;
+import java.io.Serializable;
+
+
 
 /**
  *
  * @author Lenovo
  */
-public class arma extends Char {
-    private int campo;
+public class arma extends Char implements Serializable {
 
-    public arma(int campo,String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2) {
-        super(nombre,tipo, resistencia, golpe, aparicion, gif, gif2);
-        this.campo = campo;
+    public arma(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
+        super(nombre, tipo, resistencia, golpe, aparicion, gif, gif2, campo);
     }
 
+
+    @Override
+    public String toString() {
+        return "Arma: " + getNombre() + "\n De tipo: " + getTipo() + 
+               "\n Vida: " + getVida() + "\n Resistencia: " + getResistencia() +
+                "\n Capacidad de golpe: " + getGolpe() + "\n Aparicion: " + getAparicion()
+                + "\n Campo que ocupa: " + getCampo();
+    
+    
+    
     
     }
+}
     
 
     
