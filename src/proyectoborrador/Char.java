@@ -20,23 +20,26 @@ public class Char implements Serializable {
     private int vida = 100;
     private int resistencia;
     private int golpe;
+    private int nivel;
     private int aparicion;
     private ArrayList historial;
     private String gif;
     private String gif2;
     private int campo; //el espacio que ocupan
+    private int posX;
+    private int posY;
     
     public Char() {
        historial = new ArrayList();
     }
 
-    public Char(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
+    public Char(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.resistencia = resistencia;
         this.golpe = golpe;
         this.aparicion = aparicion;
-        
+        this.nivel = nivel;
         this.gif = gif;
         this.gif2 = gif2;
         this.campo = campo;
@@ -124,6 +127,30 @@ public class Char implements Serializable {
 
     public void setCampo(int campo) {
         this.campo = campo;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 
     

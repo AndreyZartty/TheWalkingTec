@@ -293,7 +293,10 @@ public class VentanaDelMenu extends javax.swing.JFrame {
     int aparicion = Integer.parseInt(Straparicion);
     int campo = Integer.parseInt(StrCampo);
     
-    zombie zombie1 = new zombie(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2, campo);
+    // Lo puse asi para que no de error jajaja
+    int nivel = 1;
+    
+    zombie zombie1 = new zombie(nombre, tipo, resistencia, golpe, nivel, aparicion, Gif, Gif2, campo);
     
     String nombreObject = nombre + ".dat";
     System.out.println(nombreObject);
@@ -328,8 +331,10 @@ public class VentanaDelMenu extends javax.swing.JFrame {
     int aparicion = Integer.parseInt(Straparicion);
     int campo = Integer.parseInt(StrCampo);
     
+    // Lo puse asi para que no de error jajaja
+    int nivel = 1;
     
-    arma arma1 = new arma(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2, campo);
+    arma arma1 = new arma(nombre, tipo, resistencia, golpe, nivel, aparicion, Gif, Gif2, campo);
     
     String nombreObject = nombre + ".dat";
     

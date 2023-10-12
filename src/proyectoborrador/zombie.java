@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class zombie extends Char implements Serializable{
 
-    public zombie(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
-        super(nombre, tipo, resistencia, golpe, aparicion, gif, gif2, campo);
+    public zombie(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
+        super(nombre, tipo, resistencia, golpe, nivel, aparicion, gif, gif2, campo);
     }
 
     
