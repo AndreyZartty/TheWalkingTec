@@ -12,19 +12,108 @@ import java.util.ArrayList;
  */
 public class Juego {
     private int nivel;
-    private ArrayList<arma> armas = new ArrayList<>();
-    private ArrayList<zombie> zombies = new ArrayList<>();
-
-    public Juego(String path){
-        FileManager.readObject(path); // Se lee el archivo de configuracion
-        // creacion de armas
-        
-        // creacion de zombies
-        
+    private Partida partidaActual;
+    private String nombrePartida= "";
+    
+    
+    public Juego(){
         // logica
         while (true){
-            break;
+            for (int i = 0; i < partidaActual.getArmas().size(); i++) {
+                if(partidaActual.getArmas().get(i).getObjetivo() == null && partidaActual.getArmas().get(i).isActivo()){
+                    zombie objetivo = null;
+                    for (int j = 0; j < partidaActual.getZombies().size(); j++) {
+                        if (objetivo == null){
+                            objetivo = partidaActual.getZombies().get(j);
+                        }
+                        else{
+                            if(compatibles(partidaActual.getArmas().get(i),partidaActual.getZombies().get(j))){
+                                int x1 = partidaActual.getArmas().get(i).getPosX();
+                                int x2 = partidaActual.getZombies().get(j).getPosX();
+                                int y1 = partidaActual.getArmas().get(i).getPosY();
+                                int y2 = partidaActual.getZombies().get(j).getPosY();
+                                if( Math.sqrt(((x2-x1)^2) +((y2-y1)^2)) < Math.sqrt(((objetivo.getPosX()-x1)^2) +((objetivo.getPosY()-y1)^2)) ){
+                                    objetivo = partidaActual.getZombies().get(j);
+                                }
+                            }
+                            
+                        }
+                        
+                        
+                    }
+                partidaActual.getArmas().get(i).setObjetivo(objetivo);    
+                    
+                }
+                
+                
+            }
+            
+            for (int i = 0; i < partidaActual.getZombies().size(); i++) {
+                if(partidaActual.getZombies().get(i).getObjetivo() == null && partidaActual.getZombies().get(i).isActivo()){
+                    arma objetivo = null;
+                    for (int j = 0; j < partidaActual.getArmas().size(); j++) {
+                        if (objetivo == null){
+                            objetivo = partidaActual.getArmas().get(j);
+                        }
+                        else{
+                            if(compatibles(partidaActual.getArmas().get(j),partidaActual.getZombies().get(i))){
+                                int x2 = partidaActual.getArmas().get(j).getPosX();
+                                int x1 = partidaActual.getZombies().get(i).getPosX();
+                                int y2 = partidaActual.getArmas().get(j).getPosY();
+                                int y1 = partidaActual.getZombies().get(i).getPosY();
+                                if( Math.sqrt(((x2-x1)^2) +((y2-y1)^2)) < Math.sqrt(((objetivo.getPosX()-x1)^2) +((objetivo.getPosY()-y1)^2)) ){
+                                    objetivo = partidaActual.getArmas().get(j);
+                                }
+                            }
+                            
+                        }
+                        
+                        
+                    }
+                partidaActual.getZombies().get(i).setObjetivo(objetivo);    
+                    
+                }
+                
+                
+            }
+            
+            for (int i = 0; i < partidaActual.getArmas().size(); i++) {
+                if(partidaActual.getArmas().get(i).isActivo()){
+                   partidaActual.getArmas().get(i).atacar();
+                }
+                else if(!partidaActual.getArmas().get(i).isActivo() && i == partidaActual.getArmas().size()-1){
+                    break;
+                }
+            }
+            for (int i = 0; i < partidaActual.getZombies().size(); i++) {
+                if(partidaActual.getZombies().get(i).isActivo()){
+                   partidaActual.getZombies().get(i).atacar();
+                }
+                else if(!partidaActual.getZombies().get(i).isActivo() && i == partidaActual.getZombies().size()-1){
+                    break;
+                }
+            }
         }
+    }
+    
+    public void guardarPartida(){
+        if (this.nombrePartida.equals("")){
+            // Pedir un nombre de partida al usuario
+        }
+        FileManager.writeObject(this.partidaActual, "./src/Partidas/" + this.nombrePartida + ".dat");
+    }
+    
+    public boolean compatibles(arma arma, zombie zombie){
+        if(arma.getTipo().equals("Aereo") && (zombie.getTipo().equals("Contacto") || zombie.getTipo().equals("Choque")) ){
+            return false;
+        }
+        else if(zombie.getTipo().equals("Aereo") && (arma.getTipo().equals("Contacto") || arma.getTipo().equals("Impacto")) ){
+            return false;
+        }
+        else{
+            return true;
+        }
+        
     }
 
     public int getNivel() {
@@ -33,22 +122,6 @@ public class Juego {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
-    }
-
-    public ArrayList<arma> getArmas() {
-        return armas;
-    }
-
-    public void setArmas(ArrayList<arma> armas) {
-        this.armas = armas;
-    }
-
-    public ArrayList<zombie> getZombies() {
-        return zombies;
-    }
-
-    public void setZombies(ArrayList<zombie> zombies) {
-        this.zombies = zombies;
     }
 
    

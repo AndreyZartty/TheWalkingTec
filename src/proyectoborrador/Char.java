@@ -28,6 +28,7 @@ public class Char implements Serializable {
     private int campo; //el espacio que ocupan
     private int posX;
     private int posY;
+    private boolean activo;
     
     public Char() {
        historial = new ArrayList();
@@ -152,6 +153,15 @@ public class Char implements Serializable {
     public void setPosY(int posY) {
         this.posY = posY;
     }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+    
 
     
     
