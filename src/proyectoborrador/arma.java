@@ -12,9 +12,9 @@ import java.io.Serializable;
  *
  * @author Lenovo
  */
-public class arma extends Char implements Serializable {
+public class Arma extends Char implements Serializable {
 
-    public arma(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
+    public Arma(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
         super(nombre, tipo, resistencia, golpe, aparicion, gif, gif2, campo);
     }
 
