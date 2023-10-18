@@ -32,6 +32,7 @@ import static proyectoborrador.FileManager.readObject;
 public class MatrixGUI extends javax.swing.JFrame {
     public ArrayList<Zombie> Zombies;
     public ArrayList<Arma> Armas;
+    private JLabel labelSeleccionado = null;
 
 
     /**
@@ -39,13 +40,10 @@ public class MatrixGUI extends javax.swing.JFrame {
      */
     public MatrixGUI() {
        Zombies = new ArrayList<Zombie>();
-       Armas = new ArrayList<Arma>();
-        initComponents();
-        
-        
+    Armas = new ArrayList<Arma>();
+    initComponents();
+
     jPanelConMatriz.setLayout(new GridLayout(25, 25));
-    jPanelConMatriz.setTransferHandler(new TransferHandler("icon"));
-    jPanelConMatriz.setDropTarget(new DropTarget());
     Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK);
 
     JLabel[][] matrizDeEtiquetas = new JLabel[25][25];
@@ -55,35 +53,22 @@ public class MatrixGUI extends javax.swing.JFrame {
             matrizDeEtiquetas[i][j] = new JLabel("dd" + i + j);
             matrizDeEtiquetas[i][j].setText("");
             matrizDeEtiquetas[i][j].setBorder(border);
-            matrizDeEtiquetas[i][j].addMouseListener(new MouseAdapter() {
+
+//        for (int i = 0; i < 25; i++) {
+    
+        matrizDeEtiquetas[i][j].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-        JLabel etiquetaClickeada = (JLabel) e.getSource();
-
-        // Comprueba si hay una imagen en el portapapeles (arrastrada desde jPanelDrag)
-        Transferable transferable = getToolkit().getSystemClipboard().getContents(this);
-
-        if (transferable != null && transferable.isDataFlavorSupported(DataFlavor.imageFlavor)) {
-            try {
-                // Obtiene la imagen del portapapeles
-                ImageIcon imagenArrastrada = (ImageIcon) transferable.getTransferData(DataFlavor.imageFlavor);
-
-                // Clona la imagen
-                ImageIcon imagenClonada = new ImageIcon(imagenArrastrada.getImage());
-
-                // Configura la imagen clonada en la etiqueta de la matriz
-                etiquetaClickeada.setIcon(imagenClonada);
-
-                // Opcionalmente, puedes mantener la imagen original en jPanelDrag
-                // para futuros arrastres
-                JLabel labelOrigen = (JLabel) jPanelDrag.getComponent(0);  // El primer componente es el JLabel
-                labelOrigen.setIcon(imagenArrastrada);
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                labelSeleccionado = (JLabel) e.getSource(); // Registra el label seleccionado
             }
-        }
-    }
-});
+        });
+    
+
+
+
+
+
+
             jPanelConMatriz.add(matrizDeEtiquetas[i][j]);
         }
     }
@@ -91,16 +76,11 @@ public class MatrixGUI extends javax.swing.JFrame {
     // Establecer el panelConMatriz como el componente central de la ventana
     getContentPane().add(jPanelConMatriz, BorderLayout.CENTER);
 
-    //JPanel panelArrastrarSoltar = new JPanel();
-    
-    // Agrega componentes y funcionalidad de arrastrar y soltar a este panel
+    getContentPane().add(jPanelDrag, BorderLayout.NORTH);
 
-    getContentPane().add(jPanelDrag, BorderLayout.NORTH);  // Opcionalmente, puedes cambiar el layout para el panel de arrastrar y soltar
-
-    
     agregarObjects();
-    agregarArmas();
-    }
+    agregarArmas(matrizDeEtiquetas);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -251,46 +231,30 @@ public void agregarObjects (){
     }
 
 
-public void agregarArmas(){
+public void agregarArmas(JLabel[][] matrizDeEtiquetas) {
     jPanelDrag.setLayout(new FlowLayout(FlowLayout.LEFT));
     for (Arma arma : Armas) {
-        System.out.println(arma.getGif());
-    // Obtén la ruta de la imagen de tu objeto Arma
-    String rutaImagen = arma.getGif();
+        // Obtén la ruta de la imagen de tu objeto Arma
+        String rutaImagen = arma.getGif();
 
-    // Cargar la imagen y redimensionarla
-ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagen).getImage().getScaledInstance(250, 200, Image.SCALE_SMOOTH));
+        // Cargar la imagen y redimensionarla
+        ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagen).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 
-// Crear el JLabel con el ImageIcon
-JLabel labelArma = new JLabel(icon);
+        // Crear el JLabel con el ImageIcon
+        JLabel labelArma = new JLabel(icon);
 
-    // Establece un TransferHandler en el JLabel para permitir el arrastre
-    labelArma.setTransferHandler(new TransferHandler("icon") {
-        @Override
-        protected Transferable createTransferable(JComponent c) {
-            return new DataHandler(c, DataFlavor.imageFlavor.getMimeType());
-            
+        labelArma.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (labelSeleccionado != null) {
+            labelSeleccionado.setIcon(labelArma.getIcon());
+            labelSeleccionado = null; // Reinicia la selección
         }
-    });
-    System.out.println("holaaaaaa");
-
-    // Agrega un MouseListener para iniciar el arrastre
-    labelArma.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mousePressed(MouseEvent e) {
-            JComponent c = (JComponent) e.getSource();
-            TransferHandler handler = c.getTransferHandler();
-            handler.exportAsDrag(c, e, TransferHandler.COPY);
-        }
-    });
-
-    // Agrega el JLabel al panel de arrastre (paneldrag)
-    jPanelDrag.add(labelArma);
-       
-
+    }
+});
+        jPanelDrag.add(labelArma);
+    }
 }
-}
-
 
 
 
