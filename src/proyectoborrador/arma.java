@@ -5,6 +5,7 @@
 package proyectoborrador;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 
@@ -14,7 +15,8 @@ import java.io.Serializable;
  */
 public class arma extends Char implements Serializable {
     
-    private zombie objetivo = null; 
+    private zombie objetivo = null;
+    private ArrayList<Thread> ataque = new ArrayList<Thread>();
 
     public arma(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
         super(nombre, tipo, resistencia, golpe, nivel, aparicion, gif, gif2, campo);
@@ -35,19 +37,54 @@ public class arma extends Char implements Serializable {
     
     public void atacar(){
         if (this.getTipo().equals("Contacto")){
-            
+            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread);
         }
         else if (this.getTipo().equals("MedianoA")){
-            
+            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread);
+            ThreadDisparo threadD = new ThreadDisparo(this,objetivo);
+            ataque.add(threadD);
+            threadD.run();
+            ataque.remove(threadD);
         }
         else if (this.getTipo().equals("Aereo")){
-            
+            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread);
+            ThreadDisparo threadD = new ThreadDisparo(this,objetivo);
+            ataque.add(threadD);
+            threadD.run();
+            ataque.remove(threadD);
         }
         else if (this.getTipo().equals("Impacto")){
-            
+            ThreadExplosion thread = new ThreadExplosion(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread);
         }
         else if (this.getTipo().equals("Multiple")){
-            
+            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread);
+            ThreadDisparo threadD = new ThreadDisparo(this,objetivo);
+            ThreadDisparo threadD1 = new ThreadDisparo(this,objetivo);
+            ThreadDisparo threadD2 = new ThreadDisparo(this,objetivo);
+            ataque.add(threadD);
+            ataque.add(threadD1);
+            ataque.add(threadD2);
+            threadD.run();
+            threadD1.run();
+            threadD2.run();
+            ataque.remove(threadD);
+            ataque.remove(threadD1);
+            ataque.remove(threadD2);
         }
         else if (this.getTipo().equals("Bloque")){
             
@@ -60,6 +97,14 @@ public class arma extends Char implements Serializable {
 
     public void setObjetivo(zombie objetivo) {
         this.objetivo = objetivo;
+    }
+
+    public ArrayList<Thread> getAtaque() {
+        return ataque;
+    }
+
+    public void setAtaque(ArrayList<Thread> ataque) {
+        this.ataque = ataque;
     }
     
     

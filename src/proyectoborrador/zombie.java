@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class zombie extends Char implements Serializable{
     
     private arma objetivo = null;
+    private ArrayList<Thread> ataque = new ArrayList<Thread>();
 
     public zombie(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
         super(nombre, tipo, resistencia, golpe, nivel, aparicion, gif, gif2, campo);
@@ -31,16 +32,40 @@ public class zombie extends Char implements Serializable{
     
     public void atacar(){
         if (this.getTipo().equals("Contacto")){
-            
+            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread); 
         }
         else if (this.getTipo().equals("MedianoA")){
-            
+            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread);
+            ThreadDisparo threadD = new ThreadDisparo(this,objetivo);
+            ataque.add(threadD);
+            threadD.run();
+            ataque.remove(threadD);
         }
         else if (this.getTipo().equals("Aereo")){
-            
+            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread);
+            ThreadDisparo threadD = new ThreadDisparo(this,objetivo);
+            ataque.add(threadD);
+            threadD.run();
+            ataque.remove(threadD);
         }
         else if (this.getTipo().equals("Choque")){
-            
+            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo);
+            ataque.add(thread);
+            thread.run();
+            ataque.remove(thread);
+            ThreadExplosion threadE = new ThreadExplosion(this,objetivo);
+            ataque.add(threadE);
+            threadE.run();
+            ataque.remove(threadE);
         }
     }
 
@@ -51,5 +76,14 @@ public class zombie extends Char implements Serializable{
     public void setObjetivo(arma objetivo) {
         this.objetivo = objetivo;
     }
+
+    public ArrayList<Thread> getAtaque() {
+        return ataque;
+    }
+
+    public void setAtaque(ArrayList<Thread> ataque) {
+        this.ataque = ataque;
+    }
+    
        
 }

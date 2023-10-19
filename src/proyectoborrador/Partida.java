@@ -40,18 +40,6 @@ public class Partida {
         }
     }
     
-    public void ataques(){
-        for (int i = 0; i < armas.size(); i++) {
-            if(armas.get(i).getVida() == 0){
-               armas.get(i).setActivo(false);
-            }
-        }
-        for (int i = 0; i < zombies.size(); i++) {
-            if(zombies.get(i).getVida() == 0){
-               zombies.get(i).setActivo(false);
-            }
-        }
-    }
     
     public int getNivel() {
         return nivel;

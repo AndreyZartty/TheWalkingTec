@@ -23,14 +23,18 @@ public class ThreadDisparo extends Thread {
     
     @Override
     public void run() {
+        disparoX = atacante.getPosX();
+        disparoY = atacante.getPosY();
         while (running){
             
             try {
                 sleep(200);
                 if (atacado.getPosX() == disparoX && atacado.getPosY() == disparoY){
+                    // gif de ataque
                     atacado.setVida(atacado.getVida()-atacante.getGolpe());
                     detener();
-                }else{
+                }
+                else{
                     if (atacado.getPosX() > disparoX && atacado.getPosY() > disparoY){
                         disparoX++;
                         disparoY++;
