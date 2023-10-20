@@ -14,6 +14,9 @@ public class Partida {
     private int nivel;
     private ArrayList<arma> armas = new ArrayList<>();
     private ArrayList<zombie> zombies = new ArrayList<>();
+    private String nombre;
+    private int ejercitoArmas;
+    private int ejercitoZombies;
     
     public Partida() {
         this.nivel = 1;
@@ -29,15 +32,23 @@ public class Partida {
     
     public void eliminarMuertos(){
         for (int i = 0; i < armas.size(); i++) {
-            if(armas.get(i).getVida() == 0){
+            if(armas.get(i).getVida() <= 0){
                armas.get(i).setActivo(false);
             }
         }
         for (int i = 0; i < zombies.size(); i++) {
-            if(zombies.get(i).getVida() == 0){
+            if(zombies.get(i).getVida() <= 0){
                zombies.get(i).setActivo(false);
             }
         }
+    }
+    
+    public void subirNivel(){
+        this.nivel++;
+        if (this.nivel == 10){
+            // Mensaje de juego completado
+        }
+        
     }
     
     
@@ -64,6 +75,31 @@ public class Partida {
     public void setZombies(ArrayList<zombie> zombies) {
         this.zombies = zombies;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getEjercitoArmas() {
+        return ejercitoArmas;
+    }
+
+    public void addEjercitoArmas(int ejercitoArmas) {
+        this.ejercitoArmas += ejercitoArmas;
+    }
+
+    public int getEjercitoZombies() {
+        return ejercitoZombies;
+    }
+
+    public void addEjercitoZombies(int ejercitoZombies) {
+        this.ejercitoZombies += ejercitoZombies;
+    }
+    
     
     
 }

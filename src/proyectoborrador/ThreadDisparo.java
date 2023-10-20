@@ -4,6 +4,8 @@
  */
 package proyectoborrador;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author XPC
@@ -15,6 +17,7 @@ public class ThreadDisparo extends Thread {
     private Char atacado;
     private int disparoX;
     private int disparoY;
+    private JLabel disparo;
 
     public ThreadDisparo(Char atacante, Char atacado) {
         this.atacante = atacante;
@@ -28,40 +31,42 @@ public class ThreadDisparo extends Thread {
         while (running){
             
             try {
-                sleep(200);
                 if (atacado.getPosX() == disparoX && atacado.getPosY() == disparoY){
                     // gif de ataque
                     atacado.setVida(atacado.getVida()-atacante.getGolpe());
                     detener();
                 }
                 else{
-                    if (atacado.getPosX() > disparoX && atacado.getPosY() > disparoY){
-                        disparoX++;
-                        disparoY++;
-                    }
-                    else if (atacado.getPosX() > disparoX && atacado.getPosY() < disparoY){
-                        disparoX++;
-                        disparoY--;
-                    }
-                    else if (atacado.getPosX() < disparoX && atacado.getPosY() > disparoY){
-                        disparoX--;
-                        disparoY++;
-                    }
-                    else if (atacado.getPosX() < disparoX && atacado.getPosY() < disparoY){
-                        disparoX--;
-                        disparoY--;
-                    }
-                    else if (atacado.getPosX() == disparoX && atacado.getPosY() > disparoY){
-                        disparoY++;
-                    }
-                    else if (atacado.getPosX() == disparoX && atacado.getPosY() < disparoY){
-                        disparoY--;
-                    }
-                    else if (atacado.getPosX() > disparoX && atacado.getPosY() == disparoY){
-                        disparoX++;
-                    }
-                    else if (atacado.getPosX() < disparoX && atacado.getPosY() == disparoY){
-                        disparoX--;
+                    if (Math.sqrt(((atacante.getPosX()-atacado.getPosX())^2) +((atacante.getPosY() -atacado.getPosY())^2)) <= 20){
+                        sleep(200);
+                        if (atacado.getPosX() > disparoX && atacado.getPosY() > disparoY){
+                            disparoX++;
+                            disparoY++;
+                        }
+                        else if (atacado.getPosX() > disparoX && atacado.getPosY() < disparoY){
+                            disparoX++;
+                            disparoY--;
+                        }
+                        else if (atacado.getPosX() < disparoX && atacado.getPosY() > disparoY){
+                            disparoX--;
+                            disparoY++;
+                        }
+                        else if (atacado.getPosX() < disparoX && atacado.getPosY() < disparoY){
+                            disparoX--;
+                            disparoY--;
+                        }
+                        else if (atacado.getPosX() == disparoX && atacado.getPosY() > disparoY){
+                            disparoY++;
+                        }
+                        else if (atacado.getPosX() == disparoX && atacado.getPosY() < disparoY){
+                            disparoY--;
+                        }   
+                        else if (atacado.getPosX() > disparoX && atacado.getPosY() == disparoY){
+                            disparoX++;
+                        }
+                        else if (atacado.getPosX() < disparoX && atacado.getPosY() == disparoY){
+                            disparoX--;
+                        }
                     }
                 }
 

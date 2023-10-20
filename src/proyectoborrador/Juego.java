@@ -17,13 +17,15 @@ public class Juego {
     
     
     public Juego(){
-        // logica
+        // Pedir cargar o crear partida
+        //partidaActual = ;
+        //nombrePartida = partidaActual.getNombre();
         while (true){
             for (int i = 0; i < partidaActual.getArmas().size(); i++) {
                 if(partidaActual.getArmas().get(i).getObjetivo() == null && partidaActual.getArmas().get(i).isActivo()){
                     zombie objetivo = null;
                     for (int j = 0; j < partidaActual.getZombies().size(); j++) {
-                        if (objetivo == null){
+                        if (objetivo == null && compatibles(partidaActual.getArmas().get(i),partidaActual.getZombies().get(j))){
                             objetivo = partidaActual.getZombies().get(j);
                         }
                         else{
@@ -52,7 +54,7 @@ public class Juego {
                 if(partidaActual.getZombies().get(i).getObjetivo() == null && partidaActual.getZombies().get(i).isActivo()){
                     arma objetivo = null;
                     for (int j = 0; j < partidaActual.getArmas().size(); j++) {
-                        if (objetivo == null){
+                        if (objetivo == null && compatibles(partidaActual.getZombies().get(i), partidaActual.getArmas().get(j))){
                             objetivo = partidaActual.getArmas().get(j);
                         }
                         else{
@@ -78,6 +80,7 @@ public class Juego {
             }
             
             int muertos = 0;
+            partidaActual.eliminarMuertos();
             for (int i = 0; i < partidaActual.getArmas().size(); i++) {
                 if(partidaActual.getArmas().get(i).isActivo() && partidaActual.getArmas().get(i).getAtaque().isEmpty()){
                    partidaActual.getArmas().get(i).atacar();

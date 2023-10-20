@@ -25,7 +25,7 @@ public class ThreadAcercamiento extends Thread{
             
             try {
                 sleep(200);
-                if(atacante.getTipo().equals("Contacto")){
+                if(atacante.getTipo().equals("Contacto") || atacante.getTipo().equals("Choque")){
                     if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
                         while (atacante.getVida()> 0 || atacado.getVida()> 0){
                             sleep(200);
@@ -65,8 +65,8 @@ public class ThreadAcercamiento extends Thread{
                         }
                     }
                     
-                }else if(atacante.getTipo().equals("MedianoA") || atacante.getTipo().equals("Multiple") || atacante.getTipo().equals("Aereo") || atacante.getTipo().equals("Choque")){
-                    if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){ // cambiar a rango de alcance
+                }else if(atacante.getTipo().equals("MedianoA") || atacante.getTipo().equals("Multiple") || atacante.getTipo().equals("Aereo")){
+                    if (Math.sqrt(((atacante.getPosX()-atacado.getPosX())^2) +((atacante.getPosY() -atacado.getPosY())^2)) <= 20){ // cambiar a rango de alcance
                         detener();
 
                     }

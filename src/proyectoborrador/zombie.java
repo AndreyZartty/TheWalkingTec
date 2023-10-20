@@ -7,6 +7,8 @@ package proyectoborrador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.JLabel;
 
 /**
  *
@@ -16,9 +18,11 @@ public class zombie extends Char implements Serializable{
     
     private arma objetivo = null;
     private ArrayList<Thread> ataque = new ArrayList<Thread>();
+    private JLabel labelZombie;
 
     public zombie(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
         super(nombre, tipo, resistencia, golpe, nivel, aparicion, gif, gif2, campo);
+        posXY();
     }
 
     @Override
@@ -68,6 +72,31 @@ public class zombie extends Char implements Serializable{
             ataque.remove(threadE);
         }
     }
+    
+    public void posXY(){
+        Random rand = new Random();
+        int chooser = rand.nextInt(2);
+        if (chooser == 0){ // X libre
+            chooser = rand.nextInt(256);
+            this.setPosX(chooser);
+            chooser = rand.nextInt(2);
+            if (chooser == 0){ //Y arriba
+                this.setPosY(0);
+            }else{ // Y abajo
+                this.setPosY(255);
+            }
+        }else{ //Y libre
+            chooser = rand.nextInt(256);
+            this.setPosY(chooser);
+            chooser = rand.nextInt(2);
+            if (chooser == 0){ //X izquierda
+                this.setPosX(0);
+            }else{ // X derecha
+                this.setPosX(255);
+            }
+            
+        }
+    }
 
     public arma getObjetivo() {
         return objetivo;
@@ -84,6 +113,7 @@ public class zombie extends Char implements Serializable{
     public void setAtaque(ArrayList<Thread> ataque) {
         this.ataque = ataque;
     }
+    
     
        
 }
