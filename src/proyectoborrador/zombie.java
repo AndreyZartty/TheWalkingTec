@@ -14,7 +14,7 @@ import javax.swing.JLabel;
  *
  * @author Lenovo
  */
-public class zombie extends Char implements Serializable{
+public class Zombie extends Char implements Serializable{
     
     private arma objetivo = null;
     private ArrayList<Thread> ataque = new ArrayList<Thread>();

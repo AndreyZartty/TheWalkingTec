@@ -13,13 +13,13 @@ import java.util.ArrayList;
  *
  * @author Lenovo
  */
-public class arma extends Char implements Serializable {
-    
+public class Arma extends Char implements Serializable {
     private zombie objetivo = null;
     private ArrayList<Thread> ataque = new ArrayList<Thread>();
+    
 
-    public arma(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
         super(nombre, tipo, resistencia, golpe, nivel, aparicion, gif, gif2, campo);
+    public arma(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
         
     }
 

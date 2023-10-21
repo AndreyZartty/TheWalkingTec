@@ -70,7 +70,7 @@ public class VentanaDelMenu extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(102, 255, 204));
 
         lblArma.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
-        lblArma.setText("arma lol");
+        lblArma.setText("Arma lol");
 
         lblZombie.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 24)); // NOI18N
         lblZombie.setText("ZOMBIEEEE");
@@ -293,23 +293,23 @@ public class VentanaDelMenu extends javax.swing.JFrame {
     int aparicion = Integer.parseInt(Straparicion);
     int campo = Integer.parseInt(StrCampo);
     
-    // Lo puse asi para que no de error jajaja
-    int nivel = 1;
+    Zombie Zombie1 = new Zombie(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2, campo);
     
     zombie zombie1 = new zombie(nombre, tipo, resistencia, golpe, nivel, aparicion, Gif, Gif2, campo);
     
     String nombreObject = nombre + ".dat";
-    System.out.println(nombreObject);
+    String filePath = "C:\\Users\\Lenovo\\Desktop\\POO\\objetos\\" + nombreObject;
+    //System.out.println(nombreObject);
     
     
-    FileManager.writeObject(zombie1, nombreObject);
+    FileManager.writeObject(Zombie1, filePath);
     
     
     
-    System.out.println(zombie1);
+    System.out.println(Zombie1);
         
     
-    JOptionPane.showMessageDialog(rootPane, zombie1, "zombie creado", JOptionPane.OK_OPTION);
+    JOptionPane.showMessageDialog(rootPane, Zombie1, "Zombie creado", JOptionPane.OK_OPTION);
     
     
     
@@ -334,18 +334,18 @@ public class VentanaDelMenu extends javax.swing.JFrame {
     // Lo puse asi para que no de error jajaja
     int nivel = 1;
     
-    arma arma1 = new arma(nombre, tipo, resistencia, golpe, nivel, aparicion, Gif, Gif2, campo);
+    Arma Arma1 = new Arma(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2, campo);
     
     String nombreObject = nombre + ".dat";
+    String filePath = "C:\\Users\\Lenovo\\Desktop\\POO\\objetos\\" + nombreObject;
     
     
+    FileManager.writeObject(Arma1, filePath);
     
-    FileManager.writeObject(arma1, nombreObject);
-    
-    System.out.println(arma1);
+    System.out.println(Arma1);
         
     
-    JOptionPane.showMessageDialog(rootPane, arma1, "Arma creada", JOptionPane.OK_OPTION);
+    JOptionPane.showMessageDialog(rootPane, Arma1, "Arma creada", JOptionPane.OK_OPTION);
     }//GEN-LAST:event_btnCrearArmaActionPerformed
 
     /**
