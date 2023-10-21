@@ -5,6 +5,7 @@
 package proyectoborrador;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -42,8 +43,17 @@ public class MatrixGUI extends javax.swing.JFrame {
        Zombies = new ArrayList<Zombie>();
     Armas = new ArrayList<Arma>();
     initComponents();
+    
+    
+    this.setResizable(false);
+    this.setPreferredSize(new Dimension(2000, 1000));
+    this.pack();
 
     jPanelConMatriz.setLayout(new GridLayout(25, 25));
+    jPanelConMatriz.setPreferredSize(new Dimension(2000, 900));
+    jPanelConMatriz.setLocation(0, 200);
+    jPanelDrag.setPreferredSize(new Dimension(2000, 100));
+    jPanelDrag.setLocation(0, 0);
     Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK);
 
     JLabel[][] matrizDeEtiquetas = new JLabel[25][25];
@@ -52,6 +62,7 @@ public class MatrixGUI extends javax.swing.JFrame {
         for (int j = 0; j < 25; j++) {
             matrizDeEtiquetas[i][j] = new JLabel("dd" + i + j);
             matrizDeEtiquetas[i][j].setText("");
+            matrizDeEtiquetas[i][j].setPreferredSize(new Dimension(20, 20));
             matrizDeEtiquetas[i][j].setBorder(border);
 
 //        for (int i = 0; i < 25; i++) {
@@ -80,6 +91,7 @@ public class MatrixGUI extends javax.swing.JFrame {
 
     agregarObjects();
     agregarArmas(matrizDeEtiquetas);
+    
 }
 
     /**
