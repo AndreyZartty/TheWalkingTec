@@ -11,11 +11,11 @@ package proyectoborrador;
 public class ThreadMovimientoZombie extends Thread {
     private boolean running = true;
     private boolean paused = false;
-    private zombie personaje;
+    private Zombie personaje;
     private int reliquiaX;
     private int reliquiaY;
 
-    public ThreadMovimientoZombie(zombie personaje) {
+    public ThreadMovimientoZombie(Zombie personaje) {
         this.personaje = personaje;
     }
     

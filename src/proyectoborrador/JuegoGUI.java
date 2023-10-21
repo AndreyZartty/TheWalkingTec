@@ -4,14 +4,12 @@
  */
 package proyectoborrador;
 
+import proyectoborrador.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.dnd.DropTarget;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -19,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.TransferHandler;
@@ -30,30 +29,47 @@ import static proyectoborrador.FileManager.readObject;
  *
  * @author Lenovo
  */
-public class MatrixGUI extends javax.swing.JFrame {
+public class JuegoGUI extends javax.swing.JFrame {
     public ArrayList<Zombie> Zombies;
     public ArrayList<Arma> Armas;
     private JLabel labelSeleccionado = null;
+    private Partida partidaActual;
 
 
     /**
      * Creates new form MatrixGUI
      */
-    public MatrixGUI() {
+    public JuegoGUI() {
         Zombies = new ArrayList<Zombie>();
         Armas = new ArrayList<Arma>();
         initComponents();
     
     
-        this.setResizable(false);
-        this.setPreferredSize(new Dimension(2000, 1000));
-        this.pack();
-
+        setResizable(false);
+        setPreferredSize(new Dimension(1200, 600));
+        
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanelPartida);
+        jPanelPartida.setLayout(jPanel1Layout);
+        jPanelPartida.setPreferredSize(new Dimension(1200, 500));
+        jPanelPartida.setLocation(0, 0);
+        
+        jPanelNivel.setPreferredSize(new Dimension(1200, 25));
+        jPanelNivel.setLocation(0, 0);
+        
+        jLabelBienvenida.setLocation(500, 240);
+        
+        jButtonCargarP.setLocation(500, 340);
+        
+        jPanelPartida.add(jButtonCargarP);
+        jPanelPartida.add(jLabelBienvenida);
+        pack();
+        
         jPanelConMatriz.setLayout(new GridLayout(25, 25));
-        jPanelConMatriz.setPreferredSize(new Dimension(2000, 900));
-        jPanelConMatriz.setLocation(0, 200);
-        jPanelDrag.setPreferredSize(new Dimension(2000, 100));
-        jPanelDrag.setLocation(0, 0);
+        jPanelConMatriz.setPreferredSize(new Dimension(1200, 600));
+        jPanelConMatriz.setLocation(0, 0);
+        jPanelConMatriz.setVisible(false);
+        jPanelNivel.setVisible(false);
+        
         Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK);
 
         JLabel[][] matrizDeEtiquetas = new JLabel[25][25];
@@ -62,32 +78,14 @@ public class MatrixGUI extends javax.swing.JFrame {
             for (int j = 0; j < 25; j++) {
                 matrizDeEtiquetas[i][j] = new JLabel("dd" + i + j);
                 matrizDeEtiquetas[i][j].setText("");
-                matrizDeEtiquetas[i][j].setPreferredSize(new Dimension(20, 20));
+                matrizDeEtiquetas[i][j].setPreferredSize(new Dimension(20, 10));
                 matrizDeEtiquetas[i][j].setBorder(border);
-
-        //        for (int i = 0; i < 25; i++) {
-    
-                matrizDeEtiquetas[i][j].addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        labelSeleccionado = (JLabel) e.getSource(); // Registra el label seleccionado
-                    }
-                });
-    
-
-
-
-
-
-
                 jPanelConMatriz.add(matrizDeEtiquetas[i][j]);
             }
         }
 
         // Establecer el panelConMatriz como el componente central de la ventana
         getContentPane().add(jPanelConMatriz, BorderLayout.CENTER);
-
-        getContentPane().add(jPanelDrag, BorderLayout.NORTH);
 
         agregarObjects();
         agregarArmas(matrizDeEtiquetas);
@@ -103,37 +101,12 @@ public class MatrixGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
         jPanelConMatriz = new javax.swing.JPanel();
-        jPanelDrag = new javax.swing.JPanel();
-
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 400));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
-        );
-
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
-        );
+        jPanelPartida = new javax.swing.JPanel();
+        jButtonCargarP = new javax.swing.JButton();
+        jLabelBienvenida = new javax.swing.JLabel();
+        jPanelNivel = new javax.swing.JPanel();
+        jLabelNivel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,7 +116,7 @@ public class MatrixGUI extends javax.swing.JFrame {
         jPanelConMatriz.setLayout(jPanelConMatrizLayout);
         jPanelConMatrizLayout.setHorizontalGroup(
             jPanelConMatrizLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
+            .addGap(0, 476, Short.MAX_VALUE)
         );
         jPanelConMatrizLayout.setVerticalGroup(
             jPanelConMatrizLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,12 +125,92 @@ public class MatrixGUI extends javax.swing.JFrame {
 
         getContentPane().add(jPanelConMatriz, java.awt.BorderLayout.LINE_END);
 
-        jPanelDrag.setBackground(new java.awt.Color(204, 255, 255));
-        jPanelDrag.setLayout(new java.awt.GridLayout());
-        getContentPane().add(jPanelDrag, java.awt.BorderLayout.PAGE_START);
+        jButtonCargarP.setText("Cargar Partida");
+        jButtonCargarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCargarPActionPerformed(evt);
+            }
+        });
+
+        jLabelBienvenida.setText("TheWalkingTEC");
+
+        javax.swing.GroupLayout jPanelPartidaLayout = new javax.swing.GroupLayout(jPanelPartida);
+        jPanelPartida.setLayout(jPanelPartidaLayout);
+        jPanelPartidaLayout.setHorizontalGroup(
+            jPanelPartidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPartidaLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabelBienvenida)
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(jPanelPartidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelPartidaLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jButtonCargarP)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanelPartidaLayout.setVerticalGroup(
+            jPanelPartidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPartidaLayout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(jLabelBienvenida)
+                .addContainerGap(201, Short.MAX_VALUE))
+            .addGroup(jPanelPartidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelPartidaLayout.createSequentialGroup()
+                    .addGap(167, 167, 167)
+                    .addComponent(jButtonCargarP)
+                    .addContainerGap(168, Short.MAX_VALUE)))
+        );
+
+        getContentPane().add(jPanelPartida, java.awt.BorderLayout.CENTER);
+
+        jLabelNivel.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanelNivelLayout = new javax.swing.GroupLayout(jPanelNivel);
+        jPanelNivel.setLayout(jPanelNivelLayout);
+        jPanelNivelLayout.setHorizontalGroup(
+            jPanelNivelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanelNivelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelNivelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabelNivel)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanelNivelLayout.setVerticalGroup(
+            jPanelNivelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanelNivelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelNivelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabelNivel)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        getContentPane().add(jPanelNivel, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonCargarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarPActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        //this.partidaActual = (Partida) FileManager.readObject(chooser.getSelectedFile().getAbsolutePath());
+        
+        jPanelConMatriz.setVisible(true);
+        jPanelNivel.setVisible(true);
+        jLabelNivel.setPreferredSize(new Dimension(1200, 15));
+        jLabelNivel.setLocation(0, 0);
+        jLabelNivel.setText("Nivel: " + 1);
+        
+        jPanelPartida.setVisible(false);
+        jLabelBienvenida.setVisible(false);
+        jButtonCargarP.setVisible(false);
+        jButtonCargarP.setEnabled(false);
+        
+        pack();
+        
+    }//GEN-LAST:event_jButtonCargarPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,30 +229,46 @@ public class MatrixGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MatrixGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JuegoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MatrixGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JuegoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MatrixGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JuegoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MatrixGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JuegoGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MatrixGUI().setVisible(true);
+                new JuegoGUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton jButtonCargarP;
+    private javax.swing.JLabel jLabelBienvenida;
+    private javax.swing.JLabel jLabelNivel;
     private javax.swing.JPanel jPanelConMatriz;
-    private javax.swing.JPanel jPanelDrag;
+    private javax.swing.JPanel jPanelNivel;
+    private javax.swing.JPanel jPanelPartida;
     // End of variables declaration//GEN-END:variables
 
     public void agregarObjects (){
@@ -244,7 +313,6 @@ public class MatrixGUI extends javax.swing.JFrame {
 
 
     public void agregarArmas(JLabel[][] matrizDeEtiquetas) {
-        jPanelDrag.setLayout(new FlowLayout(FlowLayout.LEFT));
         for (Arma arma : Armas) {
         // Obtén la ruta de la imagen de tu objeto Arma
             String rutaImagen = arma.getGif();
@@ -264,7 +332,6 @@ public class MatrixGUI extends javax.swing.JFrame {
                     }
                 }
             });
-            jPanelDrag.add(labelArma);
         }
     }
 
