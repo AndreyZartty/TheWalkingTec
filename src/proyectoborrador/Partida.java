@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Partida {
     private int nivel;
-    private ArrayList<arma> armas = new ArrayList<>();
-    private ArrayList<zombie> zombies = new ArrayList<>();
+    private ArrayList<Arma> armas = new ArrayList<>();
+    private ArrayList<Zombie> zombies = new ArrayList<>();
     private String nombre;
     private int ejercitoArmas;
     private int ejercitoZombies;
@@ -22,12 +22,12 @@ public class Partida {
         this.nivel = 1;
     }
     
-    public void addArma(arma Arma){
-        this.armas.add(Arma);
+    public void addArma(Arma arma){
+        this.armas.add(arma);
     }
     
-    public void addZombie(zombie Zombie){
-        this.zombies.add(Zombie);
+    public void addZombie(Zombie zombie){
+        this.zombies.add(zombie);
     }
     
     public void eliminarMuertos(){
@@ -60,19 +60,19 @@ public class Partida {
         this.nivel = nivel;
     }
 
-    public ArrayList<arma> getArmas() {
+    public ArrayList<Arma> getArmas() {
         return armas;
     }
 
-    public void setArmas(ArrayList<arma> armas) {
+    public void setArmas(ArrayList<Arma> armas) {
         this.armas = armas;
     }
 
-    public ArrayList<zombie> getZombies() {
+    public ArrayList<Zombie> getZombies() {
         return zombies;
     }
 
-    public void setZombies(ArrayList<zombie> zombies) {
+    public void setZombies(ArrayList<Zombie> zombies) {
         this.zombies = zombies;
     }
 

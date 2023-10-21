@@ -14,13 +14,13 @@ import java.util.ArrayList;
  * @author Lenovo
  */
 public class Arma extends Char implements Serializable {
-    private zombie objetivo = null;
+    private Zombie objetivo = null;
     private ArrayList<Thread> ataque = new ArrayList<Thread>();
     
 
-        super(nombre, tipo, resistencia, golpe, nivel, aparicion, gif, gif2, campo);
-    public arma(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
-        
+    public Arma(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
+        super(nombre, tipo, resistencia, golpe, aparicion, gif, gif2, campo);
+        this.setNivel(1);
     }
 
 
@@ -84,11 +84,11 @@ public class Arma extends Char implements Serializable {
         }
     }
 
-    public zombie getObjetivo() {
+    public Zombie getObjetivo() {
         return objetivo;
     }
 
-    public void setObjetivo(zombie objetivo) {
+    public void setObjetivo(Zombie objetivo) {
         this.objetivo = objetivo;
     }
 

@@ -16,12 +16,13 @@ import javax.swing.JLabel;
  */
 public class Zombie extends Char implements Serializable{
     
-    private arma objetivo = null;
+    private Arma objetivo = null;
     private ArrayList<Thread> ataque = new ArrayList<Thread>();
     private JLabel labelZombie;
 
-    public zombie(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
-        super(nombre, tipo, resistencia, golpe, nivel, aparicion, gif, gif2, campo);
+    public Zombie(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
+        super(nombre, tipo, resistencia, golpe, aparicion, gif, gif2, campo);
+        this.setNivel(1);
         posXY();
     }
 
@@ -98,11 +99,11 @@ public class Zombie extends Char implements Serializable{
         }
     }
 
-    public arma getObjetivo() {
+    public Arma getObjetivo() {
         return objetivo;
     }
 
-    public void setObjetivo(arma objetivo) {
+    public void setObjetivo(Arma objetivo) {
         this.objetivo = objetivo;
     }
 

@@ -34,13 +34,12 @@ public class Char implements Serializable {
        historial = new ArrayList();
     }
 
-    public Char(String nombre, String tipo, int resistencia, int golpe, int nivel, int aparicion, String gif, String gif2, int campo) {
+    public Char(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.resistencia = resistencia;
         this.golpe = golpe;
         this.aparicion = aparicion;
-        this.nivel = nivel;
         this.gif = gif;
         this.gif2 = gif2;
         this.campo = campo;

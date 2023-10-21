@@ -23,7 +23,7 @@ public class Juego {
         while (true){
             for (int i = 0; i < partidaActual.getArmas().size(); i++) {
                 if(partidaActual.getArmas().get(i).getObjetivo() == null && partidaActual.getArmas().get(i).isActivo()){
-                    zombie objetivo = null;
+                    Zombie objetivo = null;
                     for (int j = 0; j < partidaActual.getZombies().size(); j++) {
                         if (objetivo == null && compatibles(partidaActual.getArmas().get(i),partidaActual.getZombies().get(j))){
                             objetivo = partidaActual.getZombies().get(j);
@@ -52,7 +52,7 @@ public class Juego {
             
             for (int i = 0; i < partidaActual.getZombies().size(); i++) {
                 if(partidaActual.getZombies().get(i).getObjetivo() == null && partidaActual.getZombies().get(i).isActivo()){
-                    arma objetivo = null;
+                    Arma objetivo = null;
                     for (int j = 0; j < partidaActual.getArmas().size(); j++) {
                         if (objetivo == null && compatibles(partidaActual.getZombies().get(i), partidaActual.getArmas().get(j))){
                             objetivo = partidaActual.getArmas().get(j);
@@ -122,7 +122,7 @@ public class Juego {
         FileManager.writeObject(this.partidaActual, "./src/Partidas/" + this.nombrePartida + ".dat");
     }
     
-    public boolean compatibles(arma arma, zombie zombie){
+    public boolean compatibles(Arma arma, Zombie zombie){
         if(zombie.getTipo().equals("Aereo") && (arma.getTipo().equals("Contacto") || arma.getTipo().equals("Impacto")) || arma.getTipo().equals("MedianoA") || arma.getTipo().equals("Multiple") ){
             return false;
         }
@@ -132,7 +132,7 @@ public class Juego {
         
     }
     
-    public boolean compatibles(zombie zombie, arma arma){
+    public boolean compatibles(Zombie zombie, Arma arma){
         if(arma.getTipo().equals("Aereo") && (zombie.getTipo().equals("Contacto") || zombie.getTipo().equals("Choque") || arma.getTipo().equals("MedianoA")) ){
             return false;
         }

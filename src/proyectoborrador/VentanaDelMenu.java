@@ -295,7 +295,7 @@ public class VentanaDelMenu extends javax.swing.JFrame {
     
     Zombie Zombie1 = new Zombie(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2, campo);
     
-    zombie zombie1 = new zombie(nombre, tipo, resistencia, golpe, nivel, aparicion, Gif, Gif2, campo);
+    Zombie zombie1 = new Zombie(nombre, tipo, resistencia, golpe, aparicion, Gif, Gif2, campo);
     
     String nombreObject = nombre + ".dat";
     String filePath = "C:\\Users\\Lenovo\\Desktop\\POO\\objetos\\" + nombreObject;
