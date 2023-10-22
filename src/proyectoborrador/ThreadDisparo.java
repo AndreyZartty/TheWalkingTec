@@ -4,7 +4,9 @@
  */
 package proyectoborrador;
 
+import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -17,23 +19,31 @@ public class ThreadDisparo extends Thread {
     private Char atacado;
     private int disparoX;
     private int disparoY;
-    private JLabel disparo;
+    private JLabel disparo = new JLabel();
+    private JPanel gui;
 
-    public ThreadDisparo(Char atacante, Char atacado) {
+    public ThreadDisparo(Char atacante, Char atacado, JPanel gui) {
         this.atacante = atacante;
         this.atacado = atacado;
+        this.gui = gui;
+        disparoX = atacante.getPosX();
+        disparoY = atacante.getPosY();
+        disparo.setPreferredSize(new Dimension(10, 10));
+        disparo.setLocation(disparoX, disparoY);
+        disparo.setText("o");
+        gui.add(disparo);
     }
     
     @Override
     public void run() {
-        disparoX = atacante.getPosX();
-        disparoY = atacante.getPosY();
+        disparo.setVisible(true);
         while (running){
             
             try {
                 if (atacado.getPosX() == disparoX && atacado.getPosY() == disparoY){
                     // gif de ataque
                     atacado.setVida(atacado.getVida()-atacante.getGolpe());
+                    disparo.setVisible(false);
                     detener();
                 }
                 else{
@@ -67,6 +77,9 @@ public class ThreadDisparo extends Thread {
                         else if (atacado.getPosX() < disparoX && atacado.getPosY() == disparoY){
                             disparoX--;
                         }
+                        disparo.setLocation(disparoX, disparoY);
+                        //gui.repaint();
+
                     }
                 }
 

@@ -5,6 +5,8 @@
 package proyectoborrador;
 
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,13 +16,25 @@ public class Juego {
     private int nivel;
     private Partida partidaActual;
     private String nombrePartida= "";
+    private JPanel GUI;
+    private boolean playing;
+    private JLabel[][] matriz;
     
     
-    public Juego(){
+    public Juego(JPanel gui, JLabel[][] matriz, Partida partidaActual){
+        this.playing = false;
+        this.GUI = gui;
+        this.partidaActual = partidaActual;
+        this.nombrePartida = partidaActual.getNombre();
+        this.matriz = matriz;
+    }
+    
+    public void iniciar(){
         // Pedir cargar o crear partida
         //partidaActual = ;
         //nombrePartida = partidaActual.getNombre();
-        while (true){
+        playing = true;
+        while (playing){
             for (int i = 0; i < partidaActual.getArmas().size(); i++) {
                 if(partidaActual.getArmas().get(i).getObjetivo() == null && partidaActual.getArmas().get(i).isActivo()){
                     Zombie objetivo = null;
@@ -80,10 +94,12 @@ public class Juego {
             }
             
             int muertos = 0;
-            partidaActual.eliminarMuertos();
+            partidaActual.eliminarMuertos(matriz);
             for (int i = 0; i < partidaActual.getArmas().size(); i++) {
                 if(partidaActual.getArmas().get(i).isActivo() && partidaActual.getArmas().get(i).getAtaque().isEmpty()){
                    partidaActual.getArmas().get(i).atacar();
+                                       System.out.println("moving");
+
                 }
                 else if(!partidaActual.getArmas().get(i).isActivo()){
                     muertos++;
@@ -95,6 +111,7 @@ public class Juego {
                     if(partidaActual.getZombies().get(i).isActivo()){
                         ThreadMovimientoZombie reliquia = new ThreadMovimientoZombie(partidaActual.getZombies().get(i));
                         reliquia.run();
+                        playing = false;
                     }
                 }
             }
@@ -111,10 +128,10 @@ public class Juego {
             
             if (muertos == partidaActual.getZombies().size()){
                 // subir nivel
+                playing = false;
             }
         }
     }
-    
     public void guardarPartida(){
         if (this.nombrePartida.equals("")){
             // Pedir un nombre de partida al usuario
@@ -123,7 +140,7 @@ public class Juego {
     }
     
     public boolean compatibles(Arma arma, Zombie zombie){
-        if(zombie.getTipo().equals("Aereo") && (arma.getTipo().equals("Contacto") || arma.getTipo().equals("Impacto")) || arma.getTipo().equals("MedianoA") || arma.getTipo().equals("Multiple") ){
+        if(zombie.getTipo().equals("Aereo") && (arma.getTipo().equals("AContacto") || arma.getTipo().equals("Impacto")) || arma.getTipo().equals("MedianoA") || arma.getTipo().equals("Multiple") ){
             return false;
         }
         else{

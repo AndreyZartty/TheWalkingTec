@@ -34,6 +34,7 @@ public class JuegoGUI extends javax.swing.JFrame {
     public ArrayList<Arma> Armas;
     private JLabel labelSeleccionado = null;
     private Partida partidaActual;
+    private JLabel[][] matrizDeEtiquetas = new JLabel[25][25];
 
 
     /**
@@ -72,7 +73,7 @@ public class JuegoGUI extends javax.swing.JFrame {
         
         Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK);
 
-        JLabel[][] matrizDeEtiquetas = new JLabel[25][25];
+        
 
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 25; j++) {
@@ -83,13 +84,7 @@ public class JuegoGUI extends javax.swing.JFrame {
                 jPanelConMatriz.add(matrizDeEtiquetas[i][j]);
             }
         }
-
-        // Establecer el panelConMatriz como el componente central de la ventana
-        getContentPane().add(jPanelConMatriz, BorderLayout.CENTER);
-
-        agregarObjects();
-        agregarArmas(matrizDeEtiquetas);
-    
+        
     }
 
     /**
@@ -209,6 +204,36 @@ public class JuegoGUI extends javax.swing.JFrame {
         jButtonCargarP.setEnabled(false);
         
         pack();
+
+        ImageIcon icon = new ImageIcon(new ImageIcon("./src/Images/reliquia.png").getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
+
+        matrizDeEtiquetas[12][12].setIcon(icon);
+        // Establecer el panelConMatriz como el componente central de la ventana
+        getContentPane().add(jPanelConMatriz, BorderLayout.CENTER);
+
+        agregarObjects();
+        agregarArmas(matrizDeEtiquetas);
+        
+        Partida pprueba = new Partida();
+        
+        Zombie z1 = new Zombie("Juan", "Contacto", 50, 5, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto2.png", 2);
+        Arma a1 = new Arma("Guillermo Edgardo", "AContacto", 50, 10, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto1.png", 2);
+        a1.setFila(16);
+        a1.setColumna(16);
+        a1.setGUI(jPanelConMatriz);
+        z1.setGUI(jPanelConMatriz);
+        
+        pprueba.addArma(a1);
+        pprueba.addZombie(z1);
+        
+        for (int c = 0; c < pprueba.getArmas().size(); c++) {
+            icon = new ImageIcon(new ImageIcon(pprueba.getArmas().get(c).getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
+            matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()].setIcon(icon);
+        }
+        
+        Juego game = new Juego(jPanelConMatriz, matrizDeEtiquetas, pprueba);
+        game.iniciar();
+
         
     }//GEN-LAST:event_jButtonCargarPActionPerformed
 
