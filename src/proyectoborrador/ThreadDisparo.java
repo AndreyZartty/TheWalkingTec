@@ -78,7 +78,7 @@ public class ThreadDisparo extends Thread {
                             disparoX--;
                         }
                         disparo.setLocation(disparoX, disparoY);
-                        //gui.repaint();
+                        gui.repaint();
 
                     }
                 }

@@ -19,7 +19,7 @@ public class Zombie extends Char implements Serializable{
     
     private Arma objetivo = null;
     private ArrayList<Thread> ataque = new ArrayList<Thread>();
-    private JLabel labelZombie;
+    private JLabel labelZombie = new JLabel();
     private JPanel GUI;
 
     public Zombie(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
@@ -42,37 +42,37 @@ public class Zombie extends Char implements Serializable{
         if (this.getTipo().equals("Contacto")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
-            thread.run();
+            thread.start();
             ataque.remove(thread); 
         }
         else if (this.getTipo().equals("MedianoA")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
-            thread.run();
+            thread.start();
             ataque.remove(thread);
             ThreadDisparo threadD = new ThreadDisparo(this,objetivo,GUI);
             ataque.add(threadD);
-            threadD.run();
+            threadD.start();
             ataque.remove(threadD);
         }
         else if (this.getTipo().equals("Aereo")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
-            thread.run();
+            thread.start();
             ataque.remove(thread);
             ThreadDisparo threadD = new ThreadDisparo(this,objetivo, GUI);
             ataque.add(threadD);
-            threadD.run();
+            threadD.start();
             ataque.remove(threadD);
         }
         else if (this.getTipo().equals("Choque")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
-            thread.run();
+            thread.start();
             ataque.remove(thread);
             ThreadExplosion threadE = new ThreadExplosion(this,objetivo);
             ataque.add(threadE);
-            threadE.run();
+            threadE.start();
             ataque.remove(threadE);
         }
     }

@@ -23,8 +23,9 @@ public class Partida {
     private int ejercitoZombies;
     private JPanel GUI;
     
-    public Partida() {
+    public Partida(JPanel GUI) {
         this.nivel = 1;
+        this.GUI = GUI;
     }
     
     public void addArma(Arma arma){
@@ -43,6 +44,8 @@ public class Partida {
                icon = new ImageIcon(new ImageIcon(armas.get(i).getGif2()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
                if (armas.get(i).getTipo().equals("Aereo")){
                    armas.get(i).getAereo().setIcon(icon);
+                   armas.get(i).getAereo().setLocation(armas.get(i).getPosX(),armas.get(i).getPosY());
+                   GUI.add(armas.get(i).getAereo());
                }else{
                    matriz[armas.get(i).getFila()][armas.get(i).getColumna()].setIcon(icon);
                }
@@ -53,7 +56,8 @@ public class Partida {
                 zombies.get(i).setActivo(false);
                 icon = new ImageIcon(new ImageIcon(zombies.get(i).getGif2()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
                 zombies.get(i).getLabelZombie().setIcon(icon);
-
+                zombies.get(i).getLabelZombie().setLocation(zombies.get(i).getPosX(), zombies.get(i).getPosY());
+                GUI.add(zombies.get(i).getLabelZombie());
             }
         }
     }

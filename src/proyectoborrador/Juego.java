@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  *
  * @author XPC
  */
-public class Juego {
+public class Juego extends Thread{
     private int nivel;
     private Partida partidaActual;
     private String nombrePartida= "";
@@ -29,12 +29,14 @@ public class Juego {
         this.matriz = matriz;
     }
     
-    public void iniciar(){
+    @Override
+    public void run(){
         // Pedir cargar o crear partida
         //partidaActual = ;
         //nombrePartida = partidaActual.getNombre();
-        playing = true;
         while (playing){
+            int muertos = 0;
+            partidaActual.eliminarMuertos(matriz);
             for (int i = 0; i < partidaActual.getArmas().size(); i++) {
                 if(partidaActual.getArmas().get(i).getObjetivo() == null && partidaActual.getArmas().get(i).isActivo()){
                     Zombie objetivo = null;
@@ -93,13 +95,9 @@ public class Juego {
                 
             }
             
-            int muertos = 0;
-            partidaActual.eliminarMuertos(matriz);
             for (int i = 0; i < partidaActual.getArmas().size(); i++) {
                 if(partidaActual.getArmas().get(i).isActivo() && partidaActual.getArmas().get(i).getAtaque().isEmpty()){
                    partidaActual.getArmas().get(i).atacar();
-                                       System.out.println("moving");
-
                 }
                 else if(!partidaActual.getArmas().get(i).isActivo()){
                     muertos++;
@@ -110,10 +108,10 @@ public class Juego {
                 for (int i = 0; i < partidaActual.getZombies().size(); i++) {
                     if(partidaActual.getZombies().get(i).isActivo()){
                         ThreadMovimientoZombie reliquia = new ThreadMovimientoZombie(partidaActual.getZombies().get(i));
-                        reliquia.run();
-                        playing = false;
+                        reliquia.start();
                     }
                 }
+                detener();
             }
             
             muertos = 0;
@@ -128,7 +126,7 @@ public class Juego {
             
             if (muertos == partidaActual.getZombies().size()){
                 // subir nivel
-                playing = false;
+                detener();
             }
         }
     }
@@ -165,6 +163,21 @@ public class Juego {
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
+    }
+    /**
+     * Metodo para verificar el estado del hilo
+     *
+     * @return boolean
+     */
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    /**
+     * Metodo para detener el hilo
+     */
+    public void detener() {
+        this.playing = false;
     }
 
    

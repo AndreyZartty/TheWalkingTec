@@ -115,7 +115,7 @@ public class JuegoGUI extends javax.swing.JFrame {
         );
         jPanelConMatrizLayout.setVerticalGroup(
             jPanelConMatrizLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 358, Short.MAX_VALUE)
+            .addGap(0, 274, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanelConMatriz, java.awt.BorderLayout.LINE_END);
@@ -148,12 +148,12 @@ public class JuegoGUI extends javax.swing.JFrame {
             .addGroup(jPanelPartidaLayout.createSequentialGroup()
                 .addGap(141, 141, 141)
                 .addComponent(jLabelBienvenida)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
             .addGroup(jPanelPartidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelPartidaLayout.createSequentialGroup()
                     .addGap(167, 167, 167)
                     .addComponent(jButtonCargarP)
-                    .addContainerGap(168, Short.MAX_VALUE)))
+                    .addContainerGap(84, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanelPartida, java.awt.BorderLayout.CENTER);
@@ -164,21 +164,17 @@ public class JuegoGUI extends javax.swing.JFrame {
         jPanelNivel.setLayout(jPanelNivelLayout);
         jPanelNivelLayout.setHorizontalGroup(
             jPanelNivelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-            .addGroup(jPanelNivelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelNivelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabelNivel)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelNivelLayout.createSequentialGroup()
+                .addGap(0, 196, Short.MAX_VALUE)
+                .addComponent(jLabelNivel)
+                .addGap(0, 197, Short.MAX_VALUE))
         );
         jPanelNivelLayout.setVerticalGroup(
             jPanelNivelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-            .addGroup(jPanelNivelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelNivelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabelNivel)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanelNivelLayout.createSequentialGroup()
+                .addGap(0, 34, Short.MAX_VALUE)
+                .addComponent(jLabelNivel)
+                .addGap(0, 34, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelNivel, java.awt.BorderLayout.PAGE_START);
@@ -203,7 +199,6 @@ public class JuegoGUI extends javax.swing.JFrame {
         jButtonCargarP.setVisible(false);
         jButtonCargarP.setEnabled(false);
         
-        pack();
 
         ImageIcon icon = new ImageIcon(new ImageIcon("./src/Images/reliquia.png").getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
 
@@ -214,13 +209,15 @@ public class JuegoGUI extends javax.swing.JFrame {
         agregarObjects();
         agregarArmas(matrizDeEtiquetas);
         
-        Partida pprueba = new Partida();
+        Partida pprueba = new Partida(jPanelConMatriz);
         
         Zombie z1 = new Zombie("Juan", "Contacto", 50, 5, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto2.png", 2);
         Arma a1 = new Arma("Guillermo Edgardo", "AContacto", 50, 10, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto1.png", 2);
         a1.setFila(16);
         a1.setColumna(16);
         a1.setGUI(jPanelConMatriz);
+        a1.setPosX(matrizDeEtiquetas[16][16].getX());
+        a1.setPosY(matrizDeEtiquetas[16][16].getY());
         z1.setGUI(jPanelConMatriz);
         
         pprueba.addArma(a1);
@@ -230,9 +227,29 @@ public class JuegoGUI extends javax.swing.JFrame {
             icon = new ImageIcon(new ImageIcon(pprueba.getArmas().get(c).getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
             matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()].setIcon(icon);
         }
+        Zombie z2 = new Zombie("Juan", "Contacto", 50, 5, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto2.png", 2);
+        JLabel hola = new JLabel();
+        icon = new ImageIcon(new ImageIcon(z2.getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
+        hola = z2.getLabelZombie();
+        z2.setGUI(jPanelConMatriz);
+        hola.setIcon(icon);
+        hola.setPreferredSize(new Dimension(10, 10));
+        hola.setLocation(5, 5);
+        hola.setVisible(true);
+        jPanelConMatriz.add(hola);        
+        jPanelConMatriz.revalidate();
+        while (z2.getPosX() < 1400) {
+            z2.setPosX(z2.getPosX() + 1);
+            hola.setLocation(z2.getPosX(), 0);
+            hola.repaint();
+            jPanelConMatriz.revalidate();
+        }
         
         Juego game = new Juego(jPanelConMatriz, matrizDeEtiquetas, pprueba);
-        game.iniciar();
+        game.start();
+
+        
+        pack();
 
         
     }//GEN-LAST:event_jButtonCargarPActionPerformed

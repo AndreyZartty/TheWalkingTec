@@ -47,29 +47,29 @@ public class Arma extends Char implements Serializable {
         if (this.getTipo().equals("AContacto")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
-            thread.run();
+            thread.start();
             ataque.remove(thread);
         }
         else if (this.getTipo().equals("MedianoA")){
             ThreadDisparo threadD = new ThreadDisparo(this,objetivo,GUI);
             ataque.add(threadD);
-            threadD.run();
+            threadD.start();
             ataque.remove(threadD);
         }
         else if (this.getTipo().equals("Aereo")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
-            thread.run();
+            thread.start();
             ataque.remove(thread);
             ThreadDisparo threadD = new ThreadDisparo(this,objetivo, GUI);
             ataque.add(threadD);
-            threadD.run();
+            threadD.start();
             ataque.remove(threadD);
         }
         else if (this.getTipo().equals("Impacto")){
             ThreadExplosion thread = new ThreadExplosion(this,objetivo);
             ataque.add(thread);
-            thread.run();
+            thread.start();
             ataque.remove(thread);
         }
         else if (this.getTipo().equals("Multiple")){
@@ -79,9 +79,9 @@ public class Arma extends Char implements Serializable {
             ataque.add(threadD);
             ataque.add(threadD1);
             ataque.add(threadD2);
-            threadD.run();
-            threadD1.run();
-            threadD2.run();
+            threadD.start();
+            threadD1.start();
+            threadD2.start();
             ataque.remove(threadD);
             ataque.remove(threadD1);
             ataque.remove(threadD2);
