@@ -12,16 +12,20 @@ import java.awt.Image;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DropTarget;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.TransferHandler;
 import javax.swing.border.Border;
 import static proyectoborrador.FileManager.readObject;
@@ -35,7 +39,10 @@ public class MatrixGUI extends javax.swing.JFrame {
     public ArrayList<Zombie> Zombies;
     public ArrayList<Arma> Armas;
     private JLabel labelSeleccionado = null;
-    private Partida partidaActual;
+    private Partida partidaActual= new Partida();
+    private int columna;
+    private int fila;
+
 
 
     /**
@@ -62,8 +69,14 @@ public class MatrixGUI extends javax.swing.JFrame {
 
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 25; j++) {
+                if(i == 12 && j==12){
+                    matrizDeEtiquetas[i][j] = null;
+                    
+                }
                 matrizDeEtiquetas[i][j] = new JLabel("dd" + i + j);
-                matrizDeEtiquetas[i][j].setText("");
+                //matrizDeEtiquetas[i][j].setText("");
+                String string="dd02";
+                System.out.println(string.substring(3, 4));       
                 matrizDeEtiquetas[i][j].setPreferredSize(new Dimension(20, 20));
                 matrizDeEtiquetas[i][j].setBorder(border);
 
@@ -72,7 +85,24 @@ public class MatrixGUI extends javax.swing.JFrame {
                 matrizDeEtiquetas[i][j].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        labelSeleccionado = (JLabel) e.getSource(); // Registra el label seleccionado
+                        labelSeleccionado = (JLabel) e.getSource();
+                        if(labelSeleccionado.getText().length() == 4){
+                            
+                           fila=Integer.parseInt(labelSeleccionado.getText().substring(2, 3));
+                           columna=Integer.parseInt(labelSeleccionado.getText().substring(3, 4));
+                            
+                        }
+                            if(labelSeleccionado.getText().length() == 5){
+                                fila=Integer.parseInt(labelSeleccionado.getText().substring(2, 3));
+                                columna=Integer.parseInt(labelSeleccionado.getText().substring(3, 5));
+                            }
+                                if(labelSeleccionado.getText().length() == 6){
+                                    fila=Integer.parseInt(labelSeleccionado.getText().substring(2, 4));
+                                    columna=Integer.parseInt(labelSeleccionado.getText().substring(4, 6));
+                                    
+                                }
+
+// Registra el label seleccionado
                     }
                 });
     
@@ -93,6 +123,7 @@ public class MatrixGUI extends javax.swing.JFrame {
 
         agregarObjects();
         agregarArmas(matrizDeEtiquetas);
+        guardar();
     
     }
 
@@ -250,29 +281,87 @@ public class MatrixGUI extends javax.swing.JFrame {
         for (Arma arma : Armas) {
         
             String rutaImagen = arma.getGif();
-            System.out.println("hola?");
+            System.out.println(rutaImagen);
 
             // Cargar la imagen y redimensionarla
             ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagen).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 
             // Crear el JLabel con el ImageIcon
             JLabel labelArma = new JLabel(icon);
-            System.out.println("hola2?");
+            
 
             labelArma.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (labelSeleccionado != null) {
-                        if(partidaActual.getEjercitoArmas()+arma.getCampo() <= (partidaActual.getNivel() * 5 + 15)){
+                       if(partidaActual.getEjercitoArmas()+arma.getCampo() <= (partidaActual.getNivel() * 5 + 15)){
                         labelSeleccionado.setIcon(labelArma.getIcon());
+                        Arma auxiliar = arma;
+                        auxiliar.setFila(fila);
+                        auxiliar.setColumna(columna);
+                        partidaActual.addArma(auxiliar);
                         labelSeleccionado = null; // Reinicia la selección
                     }else{JOptionPane.showMessageDialog(rootPane, "No hay espacio disponible en el ejército", "NO ESPACIO", JOptionPane.OK_OPTION);}
                 }}
-            });
+            }
+            );
             jPanelDrag.add(labelArma);
         }
         }
-    }
+    
+
+public void guardar(){
+    JTextField textField = new JTextField(20);
+    JButton guardarButton = new JButton("Guardar");
+    jPanelDrag.add(textField);
+    jPanelDrag.add(guardarButton);
+    guardarButton.setBounds(1700, 10, 50, 25);
+    textField.setBounds(1800, 10, 50, 25);
+    textField.setVisible(true);
+    guardarButton.setVisible(true);
+
+    
+    guardarButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            String nombrePartida = textField.getText();
+            FileManager.writeObject(partidaActual, "./src/Partidas/" + nombrePartida + ".dat");
+            JOptionPane.showMessageDialog(rootPane, "guardao ", "PARTIDA", JOptionPane.OK_OPTION);
+        }
+    });
+
+    
+    jPanelDrag.revalidate();
+    jPanelDrag.repaint();
+    
+    
+    pack();
+    
+   // FileManager.writeObject(this.partidaActual, "./src/Partidas/" + this.nombrePartida + ".dat");
+}
+
+ public void agregarZombies(JLabel[][] matrizDeEtiquetas) {
+        jPanelDrag.setLayout(new FlowLayout(FlowLayout.LEFT));
+        for (Zombie zombie : Zombies) {
+            zombie.posXY();
+            partidaActual.addZombie(zombie);
+        
+            
+
+            
+           
+        }
+        }
+
+
+
+
+
+
+
+
+}
     
 
 
