@@ -98,6 +98,8 @@ public class ThreadAcercamiento extends Thread{
                     zombie.setVisible(true);
                     if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
                         detener();
+                        ThreadExplosion threadE = new ThreadExplosion(atacante, atacado, gui);
+                        threadE.start();
 
                     }
                     else{
@@ -140,6 +142,14 @@ public class ThreadAcercamiento extends Thread{
                     if (Math.sqrt((Math.abs(atacante.getPosX() - atacado.getPosX())^2) +(Math.abs(atacante.getPosY() - atacado.getPosY())^2)) <= 10.0){ // cambiar a rango de alcance
                         zombie.setLocation(atacante.getPosX(), atacante.getPosY());
                         //gui.repaint();
+                        ThreadDisparo threadD = new ThreadDisparo(atacante, atacado, gui);
+                        threadD.start();
+                        if (atacante.getTipo().equals("Multiple")){
+                            sleep(800);
+                        }else{
+                            sleep(3000);
+
+                        }
                         detener();
 
                     }
@@ -174,6 +184,7 @@ public class ThreadAcercamiento extends Thread{
                         }
                     }
                     zombie.setLocation(atacante.getPosX(), atacante.getPosY());
+                    zombie.repaint();
                     
                 }
                 

@@ -6,6 +6,7 @@ package proyectoborrador;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -64,6 +65,21 @@ public class Partida {
     
     public void subirNivel(){
         this.nivel++;
+        for (int i = 0; i < armas.size(); i++) {
+            Random rand = new Random();
+            int chooser = rand.nextInt(2);
+            if (chooser == 0){
+                armas.get(i).subirNivel();
+            }
+        }
+        for (int i = 0; i < zombies.size(); i++) {
+            Random rand = new Random();
+            int chooser = rand.nextInt(2);
+            if (chooser == 1) {
+                zombies.get(i).subirNivel();
+            }
+        }
+        
         if (this.nivel == 10){
             // Mensaje de juego completado
         }

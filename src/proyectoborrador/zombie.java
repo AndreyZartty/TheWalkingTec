@@ -8,6 +8,8 @@ package proyectoborrador;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -48,37 +50,18 @@ public class Zombie extends Char implements Serializable{
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
             thread.start();
-            while(thread.isAlive()){
-                
-            }
-                ThreadDisparo threadD = new ThreadDisparo(this,objetivo,GUI);
-                ataque.add(threadD);
-                threadD.start();
             
         }
         else if (this.getTipo().equals("Aereo")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
             thread.start();
-            while (thread.isAlive()) {
-                
-            }
-            ThreadDisparo threadD = new ThreadDisparo(this,objetivo, GUI);
-            ataque.add(threadD);
-            threadD.start();
             
         }
         else if (this.getTipo().equals("Choque")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
             thread.start();
-            while (thread.isAlive()) {
-            }
-
-                ThreadExplosion threadE = new ThreadExplosion(this,objetivo,GUI);
-                ataque.add(threadE);
-                threadE.start();
-
         }
     }
     

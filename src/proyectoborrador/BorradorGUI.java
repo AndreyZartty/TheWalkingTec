@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
@@ -39,44 +40,49 @@ public class BorradorGUI extends javax.swing.JFrame {
         setResizable(false);
         setPreferredSize(new Dimension(1200, 600));
         
+        jPanelBienvenida.setLayout(null);
+        this.add(jPanelBienvenida);
+        jPanelBienvenida.setBounds(0, 0, 1200, 600);
+        jPanelBienvenida.add(jButtonFile);
+        
+        ImageIcon icon = new ImageIcon(new ImageIcon("./src/Images/welcome.jpg").getImage().getScaledInstance(1200, 600, Image.SCALE_SMOOTH));
+        
+        jLabelBackground.setIcon(icon);
+        jPanelBienvenida.add(jLabelBackground);
+        jLabelBackground.setBounds(0, 0, 1200, 600);
+        jLabelBackground.setText("");
+        
+        
+        jButtonFile.setBounds(1000, 400, 150, 100);
+        jButtonFile.setText("Cargar Partida");
+        
+        
+        
+        jButtonFile.setVisible(true);
+        jLabelBackground.setVisible(true);
+        jPanelBienvenida.setVisible(true);
+
+        pack();
         jPanelNivel.setLayout(null);
         this.add(jPanelNivel);
         jPanelNivel.setBounds(0, 0, 1200, 30);
 
         jPanelNivel.add(jLabelNivel);
         jLabelNivel.setText("Nivel: " + partidaActual.getNivel());
-        jLabelNivel.setVisible(true);
+        jLabelNivel.setVisible(false);
         jLabelNivel.setBounds(5, 5, 50, 20);
 
         jPanelNivel.add(jButtonJugar);
         jButtonJugar.setBounds(1100, 5, 70, 20);
 
+        jPanelNivel.setVisible(false);
 
-        jPanelNivel.setVisible(true);
-        
         this.add(jPanelMatriz);
         jPanelMatriz.setLayout(null);
         jPanelMatriz.setBounds(0, 30, 1200, 570);
-        jPanelMatriz.setVisible(true);
-
-        Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK);
+        jPanelMatriz.setVisible(false);
         
-        int x = 100;
-        int y = 10;
-        for (int i = 0; i < 25; i++) {
-            for (int j = 0; j < 25; j++) {
-                matrizDeEtiquetas[i][j] = new JLabel();
-                matrizDeEtiquetas[i][j].setText("");
-                jPanelMatriz.add(matrizDeEtiquetas[i][j]);
-                matrizDeEtiquetas[i][j].setBounds(x, y, 40, 20);
-                matrizDeEtiquetas[i][j].setBorder(border);
-                //jPanelMatriz.repaint();
-                x += 40;
-            }
-            x = 100;
-            y += 20;
-        }
-        pack();
+        
 
     }
 
@@ -94,6 +100,9 @@ public class BorradorGUI extends javax.swing.JFrame {
         jLabelNivel = new javax.swing.JLabel();
         jButtonJugar = new javax.swing.JButton();
         jPanelMatriz = new javax.swing.JPanel();
+        jPanelBienvenida = new javax.swing.JPanel();
+        jLabelBackground = new javax.swing.JLabel();
+        jButtonFile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -124,6 +133,21 @@ public class BorradorGUI extends javax.swing.JFrame {
         getContentPane().add(jPanelMatriz);
         jPanelMatriz.setBounds(0, 30, 0, 0);
 
+        jPanelBienvenida.setLayout(null);
+        jPanelBienvenida.add(jLabelBackground);
+        jLabelBackground.setBounds(0, 0, 400, 300);
+
+        jButtonFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFileActionPerformed(evt);
+            }
+        });
+        jPanelBienvenida.add(jButtonFile);
+        jButtonFile.setBounds(310, 210, 80, 70);
+
+        getContentPane().add(jPanelBienvenida);
+        jPanelBienvenida.setBounds(0, 0, 0, 0);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -134,9 +158,10 @@ public class BorradorGUI extends javax.swing.JFrame {
         matrizDeEtiquetas[12][12].setIcon(icon);
         
         Partida pprueba = new Partida(jPanelMatriz);
-
-        Zombie z1 = new Zombie("Juan", "Aereo", 50, 10, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto2.png", 2);
-        Arma a1 = new Arma("Guillermo Edgardo", "Aereo", 50, 5, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto1.png", 2);
+        
+        //PRUEBA
+        Zombie z1 = new Zombie("Juan", "Contacto", 50, 10, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto2.png", 2);
+        Arma a1 = new Arma("Guillermo Edgardo", "Bloque", 50, 5, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto1.png", 2);
         a1.setFila(16);
         a1.setColumna(16);
         a1.setGUI(jPanelMatriz);
@@ -151,20 +176,64 @@ public class BorradorGUI extends javax.swing.JFrame {
         for (int c = 0; c < pprueba.getArmas().size(); c++) {
             Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK);
             icon = new ImageIcon(new ImageIcon(pprueba.getArmas().get(c).getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
-            jPanelMatriz.add(pprueba.getArmas().get(c).getLabel());
-            pprueba.getArmas().get(c).getLabel().setBounds(pprueba.getArmas().get(c).getPosX(), pprueba.getArmas().get(c).getPosX(), 40, 20);
-            pprueba.getArmas().get(c).getLabel().setBorder(border);
-            pprueba.getArmas().get(c).getLabel().setIcon(icon);
+            matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()] = pprueba.getArmas().get(c).getLabel();
+            //pprueba.getArmas().get(c).getLabel().setBounds(pprueba.getArmas().get(c).getPosX(), pprueba.getArmas().get(c).getPosX(), 40, 20);
+            //pprueba.getArmas().get(c).getLabel().setBorder(border);
+            //pprueba.getArmas().get(c).getLabel().setIcon(icon);
             matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()].setIcon(icon);
             //matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()].setIcon(icon);
             //matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()] = pprueba.getArmas().get(c).getLabel();
             pprueba.getArmas().get(c).setLabel(matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()]);
             pprueba.getArmas().get(c).getLabel().setVisible(true);
         }
+        //FIN PRUEBA
         
         Juego game = new Juego(jPanelMatriz, matrizDeEtiquetas, pprueba);
         game.start();
     }//GEN-LAST:event_jButtonJugarActionPerformed
+
+    private void jButtonFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFileActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        //this.partidaActual = (Partida) FileManager.readObject(chooser.getSelectedFile().getAbsolutePath());
+
+        jButtonFile.setVisible(false);
+        jLabelBackground.setVisible(false);
+        jPanelBienvenida.setVisible(false);
+
+        Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK);
+
+        int x = 100;
+        int y = 10;
+        for (int i = 0; i < 25; i++) {
+            for (int j = 0; j < 25; j++) {
+                matrizDeEtiquetas[i][j] = new JLabel();
+                /*for (int k = 0; k < partidaActual.getArmas().size(); k++) {
+                    if(partidaActual.getArmas().get(k).getPosX() == x && partidaActual.getArmas().get(k).getPosY() == y){
+                        matrizDeEtiquetas[i][j] = partidaActual.getArmas().get(k).getLabel();
+                        ImageIcon icon = new ImageIcon(new ImageIcon(partidaActual.getArmas().get(k).getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
+                        matrizDeEtiquetas[i][j].setIcon(icon);
+                    }                    
+                }*/
+                matrizDeEtiquetas[i][j].setText("");
+                jPanelMatriz.add(matrizDeEtiquetas[i][j]);
+                matrizDeEtiquetas[i][j].setBounds(x, y, 40, 20);
+                matrizDeEtiquetas[i][j].setBorder(border);
+                //jPanelMatriz.repaint();
+                x += 40;
+            }
+            x = 100;
+            y += 20;
+        }
+
+        jLabelNivel.setVisible(true);
+        jButtonJugar.setBounds(1100, 5, 70, 20);
+        jPanelNivel.setVisible(true);
+        jPanelMatriz.setVisible(true);
+
+        pack();
+    }//GEN-LAST:event_jButtonFileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,8 +271,11 @@ public class BorradorGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonFile;
     private javax.swing.JButton jButtonJugar;
+    private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelNivel;
+    private javax.swing.JPanel jPanelBienvenida;
     private javax.swing.JPanel jPanelMatriz;
     private javax.swing.JPanel jPanelNivel;
     // End of variables declaration//GEN-END:variables

@@ -134,7 +134,13 @@ public class Char implements Serializable {
     public int getNivel() {
         return nivel;
     }
-
+    
+    public void subirNivel() {
+        this.nivel++;
+        this.resistencia += 15;
+        this.golpe += 20;
+    }
+    
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }

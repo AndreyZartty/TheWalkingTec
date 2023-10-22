@@ -4,11 +4,13 @@
  */
 package proyectoborrador;
 
+import java.awt.Image;
 import java.io.Serializable;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -61,14 +63,9 @@ public class Arma extends Char implements Serializable {
             }
         }
         else if (this.getTipo().equals("Aereo")){
-            ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
+            ThreadAcercamiento thread = new ThreadAcercamiento(this, objetivo, GUI);
             ataque.add(thread);
             thread.start();
-            while(thread.isAlive()) {
-            }
-                ThreadDisparo threadD = new ThreadDisparo(this,objetivo, GUI);
-                ataque.add(threadD);
-                threadD.start();
         }
         else if (this.getTipo().equals("Impacto")){
             ThreadExplosion thread = new ThreadExplosion(this,objetivo, GUI);
@@ -87,23 +84,27 @@ public class Arma extends Char implements Serializable {
                 ataque.add(threadD2);
                 threadD.start();
                 try {
-                    sleep(100);
+                    sleep(266);
                 } catch (InterruptedException ex) {
                 }
                 threadD1.start();
                 try {
-                    sleep(100);
+                    sleep(266);
                 } catch (InterruptedException ex) {
                 }
                 threadD2.start();
                 try {
-                    sleep(100);
+                    sleep(266);
                 } catch (InterruptedException ex) {
                 }
             }
         }
         else if (this.getTipo().equals("Bloque")){
-            
+            GUI.add(getLabel());
+            ImageIcon icon = new ImageIcon(new ImageIcon(this.getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
+            getLabel().setIcon(icon);
+            getLabel().setBounds(getPosX(),getPosY(),40,20);
+            getLabel().setVisible(true);
         }
     }
 
