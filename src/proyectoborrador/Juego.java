@@ -31,9 +31,6 @@ public class Juego extends Thread{
     
     @Override
     public void run(){
-        // Pedir cargar o crear partida
-        //partidaActual = ;
-        //nombrePartida = partidaActual.getNombre();
         while (playing){
             int muertos = 0;
             partidaActual.eliminarMuertos(matriz);

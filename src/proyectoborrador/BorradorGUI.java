@@ -99,6 +99,7 @@ public class BorradorGUI extends javax.swing.JFrame {
         jPanelNivel = new javax.swing.JPanel();
         jLabelNivel = new javax.swing.JLabel();
         jButtonJugar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanelMatriz = new javax.swing.JPanel();
         jPanelBienvenida = new javax.swing.JPanel();
         jLabelBackground = new javax.swing.JLabel();
@@ -125,6 +126,15 @@ public class BorradorGUI extends javax.swing.JFrame {
         });
         jPanelNivel.add(jButtonJugar);
         jButtonJugar.setBounds(320, 0, 70, 20);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanelNivel.add(jButton1);
+        jButton1.setBounds(240, 0, 75, 23);
 
         getContentPane().add(jPanelNivel);
         jPanelNivel.setBounds(0, 0, 400, 30);
@@ -156,39 +166,9 @@ public class BorradorGUI extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(new ImageIcon("./src/Images/reliquia.png").getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
 
         matrizDeEtiquetas[12][12].setIcon(icon);
+              
         
-        Partida pprueba = new Partida(jPanelMatriz);
-        
-        //PRUEBA
-        Zombie z1 = new Zombie("Juan", "Contacto", 50, 10, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto2.png", 2);
-        Arma a1 = new Arma("Guillermo Edgardo", "Bloque", 50, 5, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto1.png", 2);
-        a1.setFila(16);
-        a1.setColumna(16);
-        a1.setGUI(jPanelMatriz);
-        a1.setPosX(matrizDeEtiquetas[16][16].getX());
-        a1.setPosY(matrizDeEtiquetas[16][16].getY());
-        z1.setGUI(jPanelMatriz);
-
-
-        pprueba.addArma(a1);
-        pprueba.addZombie(z1);
-
-        for (int c = 0; c < pprueba.getArmas().size(); c++) {
-            Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK);
-            icon = new ImageIcon(new ImageIcon(pprueba.getArmas().get(c).getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
-            matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()] = pprueba.getArmas().get(c).getLabel();
-            //pprueba.getArmas().get(c).getLabel().setBounds(pprueba.getArmas().get(c).getPosX(), pprueba.getArmas().get(c).getPosX(), 40, 20);
-            //pprueba.getArmas().get(c).getLabel().setBorder(border);
-            //pprueba.getArmas().get(c).getLabel().setIcon(icon);
-            matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()].setIcon(icon);
-            //matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()].setIcon(icon);
-            //matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()] = pprueba.getArmas().get(c).getLabel();
-            pprueba.getArmas().get(c).setLabel(matrizDeEtiquetas[pprueba.getArmas().get(c).getFila()][pprueba.getArmas().get(c).getColumna()]);
-            pprueba.getArmas().get(c).getLabel().setVisible(true);
-        }
-        //FIN PRUEBA
-        
-        Juego game = new Juego(jPanelMatriz, matrizDeEtiquetas, pprueba);
+        Juego game = new Juego(jPanelMatriz, matrizDeEtiquetas, partidaActual);
         game.start();
     }//GEN-LAST:event_jButtonJugarActionPerformed
 
@@ -196,7 +176,7 @@ public class BorradorGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
-        //this.partidaActual = (Partida) FileManager.readObject(chooser.getSelectedFile().getAbsolutePath());
+        this.partidaActual = (Partida) FileManager.readObject(chooser.getSelectedFile().getAbsolutePath());
 
         jButtonFile.setVisible(false);
         jLabelBackground.setVisible(false);
@@ -209,13 +189,13 @@ public class BorradorGUI extends javax.swing.JFrame {
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 25; j++) {
                 matrizDeEtiquetas[i][j] = new JLabel();
-                /*for (int k = 0; k < partidaActual.getArmas().size(); k++) {
-                    if(partidaActual.getArmas().get(k).getPosX() == x && partidaActual.getArmas().get(k).getPosY() == y){
+                for (int k = 0; k < partidaActual.getArmas().size(); k++) {
+                    if(partidaActual.getArmas().get(k).getFila() == i && partidaActual.getArmas().get(k).getColumna() == j){
                         matrizDeEtiquetas[i][j] = partidaActual.getArmas().get(k).getLabel();
                         ImageIcon icon = new ImageIcon(new ImageIcon(partidaActual.getArmas().get(k).getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
                         matrizDeEtiquetas[i][j].setIcon(icon);
                     }                    
-                }*/
+                }
                 matrizDeEtiquetas[i][j].setText("");
                 jPanelMatriz.add(matrizDeEtiquetas[i][j]);
                 matrizDeEtiquetas[i][j].setBounds(x, y, 40, 20);
@@ -234,6 +214,11 @@ public class BorradorGUI extends javax.swing.JFrame {
 
         pack();
     }//GEN-LAST:event_jButtonFileActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,6 +256,7 @@ public class BorradorGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonFile;
     private javax.swing.JButton jButtonJugar;
     private javax.swing.JLabel jLabelBackground;

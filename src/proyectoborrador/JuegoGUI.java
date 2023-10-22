@@ -186,7 +186,7 @@ public class JuegoGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
-        //this.partidaActual = (Partida) FileManager.readObject(chooser.getSelectedFile().getAbsolutePath());
+        this.partidaActual = (Partida) FileManager.readObject(chooser.getSelectedFile().getAbsolutePath());
         
         jPanelConMatriz.setVisible(true);
         jPanelNivel.setVisible(true);
