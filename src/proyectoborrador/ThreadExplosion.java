@@ -4,6 +4,8 @@
  */
 package proyectoborrador;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author XPC
@@ -13,12 +15,13 @@ public class ThreadExplosion extends Thread{
     private boolean paused = false;
     private Char atacante;
     private Char atacado;
-    private int disparoX;
-    private int disparoY;
+    private JPanel gui;
 
-    public ThreadExplosion(Char atacante, Char atacado) {
+
+    public ThreadExplosion(Char atacante, Char atacado, JPanel gui) {
         this.atacante = atacante;
         this.atacado = atacado;
+        this.gui = gui;
     }
     
     @Override
@@ -27,7 +30,9 @@ public class ThreadExplosion extends Thread{
             if (atacado.getPosX() == atacante.getPosX() && atacado.getPosY() == atacante.getPosY()){
                 // gif de ataque
                 atacado.setVida(atacado.getVida()-atacante.getGolpe());
+                atacante.setVida(0);
                 atacante.setActivo(false);
+                atacante.getLabel().setVisible(false);
                 detener();
             }
         }        

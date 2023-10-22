@@ -43,9 +43,9 @@ public class Partida {
                armas.get(i).setActivo(false);
                icon = new ImageIcon(new ImageIcon(armas.get(i).getGif2()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
                if (armas.get(i).getTipo().equals("Aereo")){
-                   armas.get(i).getAereo().setIcon(icon);
-                   armas.get(i).getAereo().setLocation(armas.get(i).getPosX(),armas.get(i).getPosY());
-                   GUI.add(armas.get(i).getAereo());
+                   GUI.add(armas.get(i).getLabel());
+                   armas.get(i).getLabel().setIcon(icon);
+                   armas.get(i).getLabel().setLocation(armas.get(i).getPosX(),armas.get(i).getPosY());
                }else{
                    matriz[armas.get(i).getFila()][armas.get(i).getColumna()].setIcon(icon);
                }
@@ -53,11 +53,11 @@ public class Partida {
         }
         for (int i = 0; i < zombies.size(); i++) {
             if(zombies.get(i).getVida() <= 0){
+                GUI.add(zombies.get(i).getLabel());
                 zombies.get(i).setActivo(false);
                 icon = new ImageIcon(new ImageIcon(zombies.get(i).getGif2()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
-                zombies.get(i).getLabelZombie().setIcon(icon);
-                zombies.get(i).getLabelZombie().setLocation(zombies.get(i).getPosX(), zombies.get(i).getPosY());
-                GUI.add(zombies.get(i).getLabelZombie());
+                zombies.get(i).getLabel().setIcon(icon);
+                zombies.get(i).getLabel().setLocation(zombies.get(i).getPosX(), zombies.get(i).getPosY());
             }
         }
     }

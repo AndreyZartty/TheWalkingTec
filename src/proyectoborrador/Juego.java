@@ -22,7 +22,7 @@ public class Juego extends Thread{
     
     
     public Juego(JPanel gui, JLabel[][] matriz, Partida partidaActual){
-        this.playing = false;
+        this.playing = true;
         this.GUI = gui;
         this.partidaActual = partidaActual;
         this.nombrePartida = partidaActual.getNombre();
@@ -41,11 +41,11 @@ public class Juego extends Thread{
                 if(partidaActual.getArmas().get(i).getObjetivo() == null && partidaActual.getArmas().get(i).isActivo()){
                     Zombie objetivo = null;
                     for (int j = 0; j < partidaActual.getZombies().size(); j++) {
-                        if (objetivo == null && compatibles(partidaActual.getArmas().get(i),partidaActual.getZombies().get(j))){
+                        if (objetivo == null && compatibles(partidaActual.getArmas().get(i),partidaActual.getZombies().get(j)) && partidaActual.getZombies().get(j).isActivo()){
                             objetivo = partidaActual.getZombies().get(j);
                         }
                         else{
-                            if(compatibles(partidaActual.getArmas().get(i),partidaActual.getZombies().get(j))){
+                            if(compatibles(partidaActual.getArmas().get(i),partidaActual.getZombies().get(j)) && partidaActual.getZombies().get(j).isActivo()){
                                 int x1 = partidaActual.getArmas().get(i).getPosX();
                                 int x2 = partidaActual.getZombies().get(j).getPosX();
                                 int y1 = partidaActual.getArmas().get(i).getPosY();
@@ -70,16 +70,16 @@ public class Juego extends Thread{
                 if(partidaActual.getZombies().get(i).getObjetivo() == null && partidaActual.getZombies().get(i).isActivo()){
                     Arma objetivo = null;
                     for (int j = 0; j < partidaActual.getArmas().size(); j++) {
-                        if (objetivo == null && compatibles(partidaActual.getZombies().get(i), partidaActual.getArmas().get(j))){
+                        if (objetivo == null && compatibles(partidaActual.getZombies().get(i), partidaActual.getArmas().get(j)) && partidaActual.getArmas().get(j).isActivo()){
                             objetivo = partidaActual.getArmas().get(j);
                         }
                         else{
-                            if(compatibles(partidaActual.getZombies().get(i), partidaActual.getArmas().get(j))){
+                            if(compatibles(partidaActual.getZombies().get(i), partidaActual.getArmas().get(j)) && partidaActual.getArmas().get(j).isActivo()){
                                 int x2 = partidaActual.getArmas().get(j).getPosX();
                                 int x1 = partidaActual.getZombies().get(i).getPosX();
                                 int y2 = partidaActual.getArmas().get(j).getPosY();
                                 int y1 = partidaActual.getZombies().get(i).getPosY();
-                                if( Math.sqrt(((x2-x1)^2) +((y2-y1)^2)) < Math.sqrt(((objetivo.getPosX()-x1)^2) +((objetivo.getPosY()-y1)^2)) ){
+                                if( Math.sqrt((Math.abs(x2-x1)^2) +(Math.abs(y2-y1)^2)) < Math.sqrt((Math.abs(objetivo.getPosX()-x1)^2) +(Math.abs(objetivo.getPosY()-y1)^2)) ){
                                     objetivo = partidaActual.getArmas().get(j);
                                 }
                             }
@@ -101,9 +101,19 @@ public class Juego extends Thread{
                 }
                 else if(!partidaActual.getArmas().get(i).isActivo()){
                     muertos++;
+                }else if (!partidaActual.getArmas().get(i).getAtaque().isEmpty()){
+                    for (int j = 0; j < partidaActual.getArmas().get(i).getAtaque().size(); j++) {
+                        if(!partidaActual.getArmas().get(i).getAtaque().get(j).isAlive()){
+                            partidaActual.getArmas().get(i).getAtaque().remove(partidaActual.getArmas().get(i).getAtaque().get(j));
+                        }
+                        
+                    }
+                    if (partidaActual.getArmas().get(i).getAtaque().isEmpty()){
+                        partidaActual.getArmas().get(i).setObjetivo(null);
+                    }
                 }
             }
-            
+            partidaActual.eliminarMuertos(matriz);
             if (muertos == partidaActual.getArmas().size()){
                 for (int i = 0; i < partidaActual.getZombies().size(); i++) {
                     if(partidaActual.getZombies().get(i).isActivo()){
@@ -115,6 +125,7 @@ public class Juego extends Thread{
             }
             
             muertos = 0;
+            partidaActual.eliminarMuertos(matriz);
             for (int i = 0; i < partidaActual.getZombies().size(); i++) {
                 if(partidaActual.getZombies().get(i).isActivo() && partidaActual.getZombies().get(i).getAtaque().isEmpty()){
                    partidaActual.getZombies().get(i).atacar();
@@ -122,14 +133,26 @@ public class Juego extends Thread{
                 else if(!partidaActual.getZombies().get(i).isActivo()){
                     muertos++;
                 }
+                else if (!partidaActual.getZombies().get(i).getAtaque().isEmpty()) {
+                    for (int j = 0; j < partidaActual.getZombies().get(i).getAtaque().size(); j++) {
+                        if (!partidaActual.getZombies().get(i).getAtaque().get(j).isAlive()) {
+                            partidaActual.getZombies().get(i).getAtaque().remove(partidaActual.getZombies().get(i).getAtaque().get(j));
+                        }
+
+                    }
+                    if (partidaActual.getZombies().get(i).getAtaque().isEmpty()) {
+                        partidaActual.getZombies().get(i).setObjetivo(null);
+                    }
+                }
             }
-            
+            partidaActual.eliminarMuertos(matriz);
             if (muertos == partidaActual.getZombies().size()){
                 // subir nivel
                 detener();
             }
         }
     }
+    
     public void guardarPartida(){
         if (this.nombrePartida.equals("")){
             // Pedir un nombre de partida al usuario
@@ -138,8 +161,21 @@ public class Juego extends Thread{
     }
     
     public boolean compatibles(Arma arma, Zombie zombie){
-        if(zombie.getTipo().equals("Aereo") && (arma.getTipo().equals("AContacto") || arma.getTipo().equals("Impacto")) || arma.getTipo().equals("MedianoA") || arma.getTipo().equals("Multiple") ){
-            return false;
+        if(zombie.getTipo().equals("Aereo")){
+            if (arma.getTipo().equals("AContacto") ){
+                return false;
+            } else if (arma.getTipo().equals("Impacto")){
+                return false;
+            }else if (arma.getTipo().equals("MedianoA")){
+                return false;
+            }
+            else if (arma.getTipo().equals("Multiple")){
+                return false;
+            }
+            else {
+                return true;
+            }
+     
         }
         else{
             return true;
@@ -148,8 +184,16 @@ public class Juego extends Thread{
     }
     
     public boolean compatibles(Zombie zombie, Arma arma){
-        if(arma.getTipo().equals("Aereo") && (zombie.getTipo().equals("Contacto") || zombie.getTipo().equals("Choque") || arma.getTipo().equals("MedianoA")) ){
-            return false;
+        if(arma.getTipo().equals("Aereo")){
+            if (zombie.getTipo().equals("Contacto")) {
+                return false;
+            } else if (zombie.getTipo().equals("Choque")) {
+                return false;
+            } else if (zombie.getTipo().equals("MedianoA")) {
+                return false;
+            }else {
+                return true;
+            }
         }
         else{
             return true;

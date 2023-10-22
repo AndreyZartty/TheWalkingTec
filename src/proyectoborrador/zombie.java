@@ -19,9 +19,9 @@ public class Zombie extends Char implements Serializable{
     
     private Arma objetivo = null;
     private ArrayList<Thread> ataque = new ArrayList<Thread>();
-    private JLabel labelZombie = new JLabel();
     private JPanel GUI;
-
+    private BorradorGUI frame;
+    
     public Zombie(String nombre, String tipo, int resistencia, int golpe, int aparicion, String gif, String gif2, int campo) {
         super(nombre, tipo, resistencia, golpe, aparicion, gif, gif2, campo);
         this.setNivel(1);
@@ -43,37 +43,42 @@ public class Zombie extends Char implements Serializable{
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
             thread.start();
-            ataque.remove(thread); 
         }
         else if (this.getTipo().equals("MedianoA")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
             thread.start();
-            ataque.remove(thread);
-            ThreadDisparo threadD = new ThreadDisparo(this,objetivo,GUI);
-            ataque.add(threadD);
-            threadD.start();
-            ataque.remove(threadD);
+            while(thread.isAlive()){
+                
+            }
+                ThreadDisparo threadD = new ThreadDisparo(this,objetivo,GUI);
+                ataque.add(threadD);
+                threadD.start();
+            
         }
         else if (this.getTipo().equals("Aereo")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
             thread.start();
-            ataque.remove(thread);
+            while (thread.isAlive()) {
+                
+            }
             ThreadDisparo threadD = new ThreadDisparo(this,objetivo, GUI);
             ataque.add(threadD);
             threadD.start();
-            ataque.remove(threadD);
+            
         }
         else if (this.getTipo().equals("Choque")){
             ThreadAcercamiento thread = new ThreadAcercamiento(this,objetivo, GUI);
             ataque.add(thread);
             thread.start();
-            ataque.remove(thread);
-            ThreadExplosion threadE = new ThreadExplosion(this,objetivo);
-            ataque.add(threadE);
-            threadE.start();
-            ataque.remove(threadE);
+            while (thread.isAlive()) {
+            }
+
+                ThreadExplosion threadE = new ThreadExplosion(this,objetivo,GUI);
+                ataque.add(threadE);
+                threadE.start();
+
         }
     }
     
@@ -118,20 +123,20 @@ public class Zombie extends Char implements Serializable{
         this.ataque = ataque;
     }
 
-    public JLabel getLabelZombie() {
-        return labelZombie;
-    }
-
-    public void setLabelZombie(JLabel labelZombie) {
-        this.labelZombie = labelZombie;
-    }
-
     public JPanel getGUI() {
         return GUI;
     }
 
     public void setGUI(JPanel GUI) {
         this.GUI = GUI;
+    }
+
+    public BorradorGUI getFrame() {
+        return frame;
+    }
+
+    public void setFrame(BorradorGUI frame) {
+        this.frame = frame;
     }
     
     

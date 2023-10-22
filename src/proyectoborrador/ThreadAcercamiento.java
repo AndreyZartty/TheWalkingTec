@@ -21,8 +21,7 @@ public class ThreadAcercamiento extends Thread{
     private Char atacante;
     private Char atacado;
     private JPanel gui;
-    private JLabel zombie = new JLabel();
-    private JFrame frame;
+    private JLabel zombie;
 
 
 
@@ -31,10 +30,11 @@ public class ThreadAcercamiento extends Thread{
         this.atacado = atacado;
         this.gui = gui;
         ImageIcon icon = new ImageIcon(new ImageIcon(atacante.getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
-        zombie.setPreferredSize(new Dimension(45, 30));
-        zombie.setLocation(atacante.getPosX(), atacante.getPosY());
+        zombie = atacante.getLabel();
+        this.gui.add(zombie);
+        zombie.setBounds(atacante.getPosX(), atacante.getPosY(),45, 30);
+        zombie.setIcon(icon);
         zombie.setVisible(false);
-        gui.add(zombie);
         
     }
     
@@ -42,9 +42,10 @@ public class ThreadAcercamiento extends Thread{
     public void run() {
         while (running){
             try {
+                sleep(20);
                 if(atacante.getTipo().equals("AContacto")){
-                    if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
-                        if (atacante.getVida()> 0 || atacado.getVida()> 0){
+                    if (Math.abs(atacante.getPosX() - atacado.getPosX()) <= 5 && Math.abs(atacante.getPosY() - atacado.getPosY()) <= 5){
+                        if (atacante.getVida()> 0 && atacado.getVida()> 0){
                             sleep(1000);
                             atacado.setVida(atacado.getVida()-atacante.getGolpe());
                         }else{
@@ -53,8 +54,8 @@ public class ThreadAcercamiento extends Thread{
                     }
                 }else if (atacante.getTipo().equals("Contacto")){
                     zombie.setVisible(true);
-                    if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
-                        if (atacante.getVida()> 0 || atacado.getVida()> 0){
+                    if ( Math.abs(atacante.getPosX()-atacado.getPosX()) <= 5 && Math.abs(atacante.getPosY()-atacado.getPosY()) <= 5 ){
+                        if (atacante.getVida()> 0 && atacado.getVida()> 0){
                             sleep(1000);
                             atacado.setVida(atacado.getVida()-atacante.getGolpe());
                         }else{
@@ -62,7 +63,6 @@ public class ThreadAcercamiento extends Thread{
                         }
                     }
                     else{
-                        sleep(1000);
                         if (atacante.getPosX() > atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
                             atacante.setPosX(atacante.getPosX()-1);
                             atacante.setPosY(atacante.getPosY()-1);
@@ -93,7 +93,7 @@ public class ThreadAcercamiento extends Thread{
                         }
                     }
                     zombie.setLocation(atacante.getPosX(), atacante.getPosY());
-                    gui.repaint();
+
                 }else if (atacante.getTipo().equals("Choque")){
                     zombie.setVisible(true);
                     if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
@@ -101,44 +101,43 @@ public class ThreadAcercamiento extends Thread{
 
                     }
                     else{
-                        sleep(1000);
+                        sleep(50);
                         if (atacante.getPosX() > atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()+1);
-                            atacante.setPosY(atacante.getPosY()+1);
+                            atacante.setPosX(atacante.getPosX()-1);
+                            atacante.setPosY(atacante.getPosY()-1);
                         }
                         else if (atacante.getPosX() > atacado.getPosX() && atacante.getPosY() < atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()+1);
-                            atacante.setPosY(atacante.getPosY()-1);
+                            atacante.setPosX(atacante.getPosX()-1);
+                            atacante.setPosY(atacante.getPosY()+1);
                         }
                         else if (atacante.getPosX() < atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()-1);
-                            atacante.setPosY(atacante.getPosY()+1);
+                            atacante.setPosX(atacante.getPosX()+1);
+                            atacante.setPosY(atacante.getPosY()-1);
                         }
                         else if (atacante.getPosX() < atacado.getPosX() && atacante.getPosY() < atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()-1);
-                            atacante.setPosY(atacante.getPosY()-1);
-                        }
-                        else if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
+                            atacante.setPosX(atacante.getPosX()+1);
                             atacante.setPosY(atacante.getPosY()+1);
                         }
-                        else if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() < atacado.getPosY()){
+                        else if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
                             atacante.setPosY(atacante.getPosY()-1);
                         }
+                        else if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() < atacado.getPosY()){
+                            atacante.setPosY(atacante.getPosY()+1);
+                        }
                         else if (atacante.getPosX() > atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()+1);
+                            atacante.setPosX(atacante.getPosX()-1);
                         }
                         else if (atacante.getPosX() < atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()-1);
+                            atacante.setPosX(atacante.getPosX()+1);
                         }
                     }
                     zombie.setLocation(atacante.getPosX(), atacante.getPosY());
-                    gui.repaint();
                     
                 }
                 else if(atacante.getTipo().equals("MedianoA") || atacante.getTipo().equals("Multiple") || atacante.getTipo().equals("Aereo")){
                     zombie.setVisible(true);
-                    sleep(1000);
-                    if (Math.sqrt(((atacante.getPosX()-atacado.getPosX())^2) +((atacante.getPosY() -atacado.getPosY())^2)) <= 20){ // cambiar a rango de alcance
+                    sleep(20);
+                    if (Math.sqrt((Math.abs(atacante.getPosX() - atacado.getPosX())^2) +(Math.abs(atacante.getPosY() - atacado.getPosY())^2)) <= 10.0){ // cambiar a rango de alcance
                         zombie.setLocation(atacante.getPosX(), atacante.getPosY());
                         //gui.repaint();
                         detener();
@@ -146,36 +145,35 @@ public class ThreadAcercamiento extends Thread{
                     }
                     else{
                         if (atacante.getPosX() > atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()+1);
-                            atacante.setPosY(atacante.getPosY()+1);
+                            atacante.setPosX(atacante.getPosX()-1);
+                            atacante.setPosY(atacante.getPosY()-1);
                         }
                         else if (atacante.getPosX() > atacado.getPosX() && atacante.getPosY() < atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()+1);
-                            atacante.setPosY(atacante.getPosY()-1);
+                            atacante.setPosX(atacante.getPosX()-1);
+                            atacante.setPosY(atacante.getPosY()+1);
                         }
                         else if (atacante.getPosX() < atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()-1);
-                            atacante.setPosY(atacante.getPosY()+1);
+                            atacante.setPosX(atacante.getPosX()+1);
+                            atacante.setPosY(atacante.getPosY()-1);
                         }
                         else if (atacante.getPosX() < atacado.getPosX() && atacante.getPosY() < atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()-1);
-                            atacante.setPosY(atacante.getPosY()-1);
-                        }
-                        else if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
+                            atacante.setPosX(atacante.getPosX()+1);
                             atacante.setPosY(atacante.getPosY()+1);
                         }
-                        else if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() < atacado.getPosY()){
+                        else if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() > atacado.getPosY()){
                             atacante.setPosY(atacante.getPosY()-1);
                         }
+                        else if (atacante.getPosX() == atacado.getPosX() && atacante.getPosY() < atacado.getPosY()){
+                            atacante.setPosY(atacante.getPosY()+1);
+                        }
                         else if (atacante.getPosX() > atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()+1);
+                            atacante.setPosX(atacante.getPosX()-1);
                         }
                         else if (atacante.getPosX() < atacado.getPosX() && atacante.getPosY() == atacado.getPosY()){
-                            atacante.setPosX(atacante.getPosX()-1);
+                            atacante.setPosX(atacante.getPosX()+1);
                         }
                     }
                     zombie.setLocation(atacante.getPosX(), atacante.getPosY());
-                    gui.repaint();
                     
                 }
                 

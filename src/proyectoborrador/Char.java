@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Char implements Serializable {
     private int posX;
     private int posY;
     private boolean activo;
+    private JLabel label = new JLabel();
     
     public Char() {
        historial = new ArrayList();
@@ -160,6 +162,15 @@ public class Char implements Serializable {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public void setLabel(JLabel label) {
+        this.label = label;
+    }
+    
     
 
     

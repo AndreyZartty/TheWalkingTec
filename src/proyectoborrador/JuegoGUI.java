@@ -230,7 +230,7 @@ public class JuegoGUI extends javax.swing.JFrame {
         Zombie z2 = new Zombie("Juan", "Contacto", 50, 5, 1, "./src/Images/zContacto1.png", "./src/Images/zContacto2.png", 2);
         JLabel hola = new JLabel();
         icon = new ImageIcon(new ImageIcon(z2.getGif()).getImage().getScaledInstance(45, 30, Image.SCALE_SMOOTH));
-        hola = z2.getLabelZombie();
+        hola = z2.getLabel();
         z2.setGUI(jPanelConMatriz);
         hola.setIcon(icon);
         hola.setPreferredSize(new Dimension(10, 10));

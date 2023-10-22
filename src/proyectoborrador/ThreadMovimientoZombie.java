@@ -12,8 +12,8 @@ public class ThreadMovimientoZombie extends Thread {
     private boolean running = true;
     private boolean paused = false;
     private Zombie personaje;
-    private int reliquiaX;
-    private int reliquiaY;
+    private int reliquiaX = 580;
+    private int reliquiaY = 250;
 
     public ThreadMovimientoZombie(Zombie personaje) {
         this.personaje = personaje;
@@ -29,33 +29,34 @@ public class ThreadMovimientoZombie extends Thread {
                     detener();
                 }else{
                     if (personaje.getPosX() > reliquiaX && personaje.getPosY() > reliquiaY){
-                        personaje.setPosX(personaje.getPosX()+1);
-                        personaje.setPosY(personaje.getPosY()+1);
+                        personaje.setPosX(personaje.getPosX()-1);
+                        personaje.setPosY(personaje.getPosY()-1);
                     }
                     else if (personaje.getPosX() > reliquiaX && personaje.getPosY() < reliquiaY){
-                        personaje.setPosX(personaje.getPosX()+1);
-                        personaje.setPosY(personaje.getPosY()-1);
+                        personaje.setPosX(personaje.getPosX()-1);
+                        personaje.setPosY(personaje.getPosY()+1);
                     }
                     else if (personaje.getPosX() < reliquiaX && personaje.getPosY() > reliquiaY){
-                        personaje.setPosX(personaje.getPosX()-1);
-                        personaje.setPosY(personaje.getPosY()+1);
+                        personaje.setPosX(personaje.getPosX()+1);
+                        personaje.setPosY(personaje.getPosY()-1);
                     }
                     else if (personaje.getPosX() < reliquiaX && personaje.getPosY() < reliquiaY){
-                        personaje.setPosX(personaje.getPosX()-1);
-                        personaje.setPosY(personaje.getPosY()-1);
-                    }
-                    else if (personaje.getPosX() == reliquiaX && personaje.getPosY() > reliquiaY){
+                        personaje.setPosX(personaje.getPosX()+1);
                         personaje.setPosY(personaje.getPosY()+1);
                     }
-                    else if (personaje.getPosX() == reliquiaX && personaje.getPosY() < reliquiaY){
+                    else if (personaje.getPosX() == reliquiaX && personaje.getPosY() > reliquiaY){
                         personaje.setPosY(personaje.getPosY()-1);
                     }
-                    else if (personaje.getPosX() > reliquiaX && personaje.getPosY() == reliquiaY){
-                        personaje.setPosX(personaje.getPosX()+1);
+                    else if (personaje.getPosX() == reliquiaX && personaje.getPosY() < reliquiaY){
+                        personaje.setPosY(personaje.getPosY()+1);
                     }
-                    else if (personaje.getPosX() < reliquiaX && personaje.getPosY() == reliquiaY){
+                    else if (personaje.getPosX() > reliquiaX && personaje.getPosY() == reliquiaY){
                         personaje.setPosX(personaje.getPosX()-1);
                     }
+                    else if (personaje.getPosX() < reliquiaX && personaje.getPosY() == reliquiaY){
+                        personaje.setPosX(personaje.getPosX()+1);
+                    }
+                    personaje.getLabel().setLocation(personaje.getPosX(), personaje.getPosY());
                 }
 
             } catch (InterruptedException ex) {

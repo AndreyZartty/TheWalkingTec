@@ -26,19 +26,18 @@ public class ThreadDisparo extends Thread {
         this.atacante = atacante;
         this.atacado = atacado;
         this.gui = gui;
-        disparoX = atacante.getPosX();
-        disparoY = atacante.getPosY();
-        disparo.setPreferredSize(new Dimension(10, 10));
-        disparo.setLocation(disparoX, disparoY);
-        disparo.setText("o");
         gui.add(disparo);
+        disparo.setBounds(disparoX, disparoY, 20, 20);
+        disparo.setText("o");
+        disparo.setVisible(false);
+
     }
     
     @Override
     public void run() {
-        disparo.setVisible(true);
+        disparoX = atacante.getPosX();
+        disparoY = atacante.getPosY();
         while (running){
-            
             try {
                 if (atacado.getPosX() == disparoX && atacado.getPosY() == disparoY){
                     // gif de ataque
@@ -47,8 +46,9 @@ public class ThreadDisparo extends Thread {
                     detener();
                 }
                 else{
-                    if (Math.sqrt(((atacante.getPosX()-atacado.getPosX())^2) +((atacante.getPosY() -atacado.getPosY())^2)) <= 20){
-                        sleep(200);
+                    if (Math.sqrt((Math.abs(atacante.getPosX() - atacado.getPosX())^2) +(Math.abs(atacante.getPosY() - atacado.getPosY())^2)) <= 10){
+                        sleep(50);
+                        disparo.setVisible(true);
                         if (atacado.getPosX() > disparoX && atacado.getPosY() > disparoY){
                             disparoX++;
                             disparoY++;
@@ -78,10 +78,10 @@ public class ThreadDisparo extends Thread {
                             disparoX--;
                         }
                         disparo.setLocation(disparoX, disparoY);
-                        gui.repaint();
-
                     }
+
                 }
+
 
             } catch (InterruptedException ex) {
                 
