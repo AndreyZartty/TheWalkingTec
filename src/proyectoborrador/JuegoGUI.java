@@ -34,6 +34,7 @@ public class JuegoGUI extends javax.swing.JFrame {
     public ArrayList<Arma> Armas;
     private JLabel labelSeleccionado = null;
     private Partida partidaActual;
+    
     private JLabel[][] matrizDeEtiquetas = new JLabel[25][25];
 
 
@@ -339,7 +340,8 @@ public class JuegoGUI extends javax.swing.JFrame {
 
     public void agregarArmas(JLabel[][] matrizDeEtiquetas) {
         for (Arma arma : Armas) {
-        // Obtén la ruta de la imagen de tu objeto Arma
+        
+            //if(partidaActual.getEjercitoArmas()+arma.getCampo() <= (partidaActual.getNivel() * 5 + 15)){
             String rutaImagen = arma.getGif();
 
             // Cargar la imagen y redimensionarla
@@ -359,7 +361,7 @@ public class JuegoGUI extends javax.swing.JFrame {
             });
         }
     }
-
+    //}
 
 
 

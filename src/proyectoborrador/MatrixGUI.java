@@ -20,6 +20,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 import javax.swing.border.Border;
@@ -34,6 +35,7 @@ public class MatrixGUI extends javax.swing.JFrame {
     public ArrayList<Zombie> Zombies;
     public ArrayList<Arma> Armas;
     private JLabel labelSeleccionado = null;
+    private Partida partidaActual;
 
 
     /**
@@ -246,30 +248,34 @@ public class MatrixGUI extends javax.swing.JFrame {
     public void agregarArmas(JLabel[][] matrizDeEtiquetas) {
         jPanelDrag.setLayout(new FlowLayout(FlowLayout.LEFT));
         for (Arma arma : Armas) {
-        // Obtén la ruta de la imagen de tu objeto Arma
+        
             String rutaImagen = arma.getGif();
+            System.out.println("hola?");
 
             // Cargar la imagen y redimensionarla
-            ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagen).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+            ImageIcon icon = new ImageIcon(new ImageIcon(rutaImagen).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
 
             // Crear el JLabel con el ImageIcon
             JLabel labelArma = new JLabel(icon);
+            System.out.println("hola2?");
 
             labelArma.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (labelSeleccionado != null) {
+                        if(partidaActual.getEjercitoArmas()+arma.getCampo() <= (partidaActual.getNivel() * 5 + 15)){
                         labelSeleccionado.setIcon(labelArma.getIcon());
                         labelSeleccionado = null; // Reinicia la selección
-                    }
-                }
+                    }else{JOptionPane.showMessageDialog(rootPane, "No hay espacio disponible en el ejército", "NO ESPACIO", JOptionPane.OK_OPTION);}
+                }}
             });
             jPanelDrag.add(labelArma);
         }
+        }
     }
+    
 
 
 
 
 
-}
