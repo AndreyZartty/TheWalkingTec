@@ -4,6 +4,8 @@
  */
 package proyectoborrador;
 
+import java.util.Iterator;
+
 /**
  *
  * @author Lenovo
@@ -19,13 +21,12 @@ public class ProyectoBorrador {
         
         
         
-        zombie leido =  (zombie)FileManager.readObject("xdd.dat");
-        System.out.println(leido.toString());
+       
+         
         
-     
-        // TODO code application logic here
-    }
     
+    
+} 
 }
 
 

@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -20,11 +21,16 @@ public class Char implements Serializable {
     private int vida = 100;
     private int resistencia;
     private int golpe;
+    private int nivel;
     private int aparicion;
     private ArrayList historial;
     private String gif;
     private String gif2;
     private int campo; //el espacio que ocupan
+    private int posX;
+    private int posY;
+    private boolean activo;
+    private JLabel label = new JLabel();
     
     public Char() {
        historial = new ArrayList();
@@ -36,7 +42,6 @@ public class Char implements Serializable {
         this.resistencia = resistencia;
         this.golpe = golpe;
         this.aparicion = aparicion;
-        
         this.gif = gif;
         this.gif2 = gif2;
         this.campo = campo;
@@ -125,6 +130,54 @@ public class Char implements Serializable {
     public void setCampo(int campo) {
         this.campo = campo;
     }
+
+    public int getNivel() {
+        return nivel;
+    }
+    
+    public void subirNivel() {
+        this.nivel++;
+        this.resistencia += 15;
+        this.golpe += 20;
+    }
+    
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public void setLabel(JLabel label) {
+        this.label = label;
+    }
+    
+    
 
     
     
